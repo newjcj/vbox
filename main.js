@@ -18,10 +18,9 @@ const createManager = () => {
 app.on('ready', () => {
 
   const mainWindowConfig = {
-    width: 1440,
+    width: 540,
     height: 768,   
   }
-  
   const urlLocation = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, './index.html')}`
   mainWindow = new AppWindow(mainWindowConfig, urlLocation)
   mainWindow.on('closed', () => {
@@ -31,6 +30,8 @@ app.on('ready', () => {
   let menu = Menu.buildFromTemplate(menuTemplate)
   Menu.setApplicationMenu(menu)
   // hook up main events
+  ipcMain.on('login', () => {
+  })
   ipcMain.on('open-settings-window', () => {
     const settingsWindowConfig = {
       width: 500,

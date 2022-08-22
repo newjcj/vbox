@@ -55,7 +55,10 @@ function App() {
 
   const fileClick = (fileID) => {
     // set current active file
+    console.log('jcj')
+    ipcRenderer.send('login')
     setActiveFileID(fileID)
+
     const currentFile = files[fileID]
     const { id, title, path, isLoaded } = currentFile
     if (!isLoaded) {
