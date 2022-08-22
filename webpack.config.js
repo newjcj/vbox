@@ -15,6 +15,10 @@ module.exports = {
         {
           from: path.resolve(__dirname, './settings'),
           to: path.resolve(__dirname, './build/settings')
+        },
+        {
+          from: path.resolve(__dirname, './node_modules/bootstrap/dist/css'),
+          to: path.resolve(__dirname, './build/node_modules/bootstrap/dist/css')
         }
      ])
   ],
