@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
 import { getParentNode } from '../utils/helper'
+import "./css/Login.scss"
 
 const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
   const [ editStatus, setEditStatus ] = useState(false)
@@ -78,32 +79,9 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
     }
   }, [editStatus])
   return (
-    <ul className="list-group list-group-flush file-list">
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-      <h1>aaaaaaaaaaaaaaaaaaa</h1>
-    </ul>
+    <div class="main">
+      jku
+    </div>
   )
 }
 

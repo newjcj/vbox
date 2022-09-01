@@ -259,7 +259,7 @@ function App() {
         <Loader />
       }
       <BrowserRouter>
-      <Link to="/" Navigate="/login">1111</Link> 
+      <Link to="/" Navigate="/login">首页</Link> 
       <Link to="/login">login</Link> 
       <Routes>
         <Route path="/" element={
