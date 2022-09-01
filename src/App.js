@@ -3,6 +3,7 @@ import { faPlus, faFileImport } from '@fortawesome/free-solid-svg-icons'
 import SimpleMDE from "react-simplemde-editor"
 import uuidv4 from 'uuid/v4'
 import { flattenArr, objToArr, timestampToString } from './utils/helper'
+import {BrowserRouter,Routes,Route,Navigate,Link,Outlet} from 'react-router-dom'
 import fileHelper from './utils/fileHelper'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,6 +11,7 @@ import "easymde/dist/easymde.min.css"
 
 import FileSearch from './components/FileSearch'
 import FileList from './components/FileList'
+import Login from './components/Login'
 import BottomBtn from './components/BottomBtn'
 import TabList from './components/TabList'
 import Loader from './components/Loader'
@@ -256,68 +258,31 @@ function App() {
       { isLoading && 
         <Loader />
       }
-      <div className="row no-gutters">
-        <div className="col-3 bg-light left-panel">
-          <FileSearch 
-            title='My Document'
-            onFileSearch={fileSearch}
-          />
+      <BrowserRouter>
+      <Link to="/" Navigate="/login">1111</Link> 
+      <Link to="/login">login</Link> 
+      <Routes>
+        <Route path="/" element={
           <FileList 
             files={fileListArr}
             onFileClick={fileClick}
             onFileDelete={deleteFile}
             onSaveEdit={updateFileName}
           />
-          <div className="row no-gutters button-group">
-            <div className="col">
-              <BottomBtn 
-                text="新建"
-                colorClass="btn-primary"
-                icon={faPlus}
-                onBtnClick={createNewFile}
-              />
-            </div>
-            <div className="col">
-              <BottomBtn 
-                text="导入"
-                colorClass="btn-success"
-                icon={faFileImport}
-                onBtnClick={importFiles}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-9 right-panel">
-          { !activeFile && 
-            <div className="start-page">
-              选择或者创建新的 Markdown 文档
-            </div>
-          }
-          { activeFile &&
-            <>
-              <TabList
-                files={openedFiles}
-                activeId={activeFileID}
-                unsaveIds={unsavedFileIDs}
-                onTabClick={tabClick}
-                onCloseTab={tabClose}
-              />
-              <SimpleMDE
-                key={activeFile && activeFile.id} 
-                value={activeFile && activeFile.body}
-                onChange={(value) => {fileChange(activeFile.id, value)}}
-                options={{
-                  minHeight: '515px',
-                }}
-              />
-              { activeFile.isSynced && 
-                <span className="sync-status">已同步，上次同步{timestampToString(activeFile.updatedAt)}</span>
-              }
-            </>
-          }
-        </div>
+        }>
+        </Route>
+        <Route path="/login" element={
+          <Login 
+            files={fileListArr}
+            onFileClick={fileClick}
+            onFileDelete={deleteFile}
+            onSaveEdit={updateFileName}
+          />
+        }>
+        </Route>
+      </Routes>
+      </BrowserRouter>
       </div>
-    </div>
   );
 }
 
