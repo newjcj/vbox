@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router,useNavigate, Route,Navigator, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router,useNavigate, Route,Navigator,useLocation, Routes, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
@@ -12,6 +12,8 @@ import "./css/index.scss"
 //const navigate=useNavigate();
 //navigate("/test");
 const Index = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
+  const dataParam = useLocation()
+  console.log(dataParam.state)
   const [ editStatus, setEditStatus ] = useState(false)
   const [ value, setValue ] = useState('')
   let node = useRef(null)

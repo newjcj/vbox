@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router,useNavigate,ator, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router,useNavigate, Routes, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
@@ -9,9 +9,11 @@ import useContextMenu from '../hooks/useContextMenu'
 import { getParentNode } from '../utils/helper'
 import "./css/Login.scss"
 
-//const navigate=useNavigate();
-//navigate("/test");
 const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
+  const navigate=useNavigate();
+  function login(){
+    navigate("/index",{state:"aaaa"});
+  }
   const [ editStatus, setEditStatus ] = useState(false)
   const [ value, setValue ] = useState('')
   let node = useRef(null)
@@ -94,7 +96,7 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
           </div>
         </form>
         <div class="col-m-12 logindiv">
-                  <button type="button" class="btn btn-primary login" onClick={()=>{console.log(222)}}>登录</button>
+                  <button type="button" class="btn btn-primary login" onClick={login}>登录</button>
         </div>
         <div class="words">还没有账号，去注册。</div>
       </div>
