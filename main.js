@@ -1,4 +1,4 @@
-const { app, Menu, ipcMain, dialog } = require('electron')
+const { app, globalShortcut, Menu, ipcMain, dialog } = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
 const menuTemplate = require('./src/menuTemplate')
@@ -17,18 +17,28 @@ const createManager = () => {
 }
 app.on('ready', () => {
 
+  Menu.setApplicationMenu(null) // null值取消顶部菜单栏 
   const mainWindowConfig = {
     width: 540,
     height: 768,   
+    title: "vobx工具盒子",
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
   }
   const urlLocation = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, './index.html')}`
   mainWindow = new AppWindow(mainWindowConfig, urlLocation)
+  // 在开发环境和生产环境均可通过快捷键打开devTools
+  globalShortcut.register('ctrl+i', function () {
+	  mainWindow.webContents.openDevTools()
+  })
   mainWindow.on('closed', () => {
     mainWindow = null
   })
     // set the menu
-  let menu = Menu.buildFromTemplate(menuTemplate)
-  Menu.setApplicationMenu(menu)
+  //let menu = Menu.buildFromTemplate(menuTemplate)
+  //Menu.setApplicationMenu(menu)
   // hook up main events
   ipcMain.on('login', () => {
   })

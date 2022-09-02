@@ -3,7 +3,7 @@ import { faPlus, faFileImport } from '@fortawesome/free-solid-svg-icons'
 import SimpleMDE from "react-simplemde-editor"
 import uuidv4 from 'uuid/v4'
 import { flattenArr, objToArr, timestampToString } from './utils/helper'
-import {BrowserRouter,Routes,Route,Navigate,Link,Outlet} from 'react-router-dom'
+import {BrowserRouter,useNavigate,Routes,Route,Navigate,Link,Outlet} from 'react-router-dom'
 import fileHelper from './utils/fileHelper'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -12,6 +12,7 @@ import "easymde/dist/easymde.min.css"
 import FileSearch from './components/FileSearch'
 import FileList from './components/FileList'
 import Login from './components/Login'
+import Index from './components/Index'
 import BottomBtn from './components/BottomBtn'
 import TabList from './components/TabList'
 import Loader from './components/Loader'
@@ -254,20 +255,11 @@ function App() {
     'loading-status': (message, status) => { setLoading(status) }
   })
   return (
-    <div className="App container-fluid px-0">
-      { isLoading && 
-        <Loader />
-      }
       <BrowserRouter>
-      <Link to="/" Navigate="/login">首页</Link> 
-      <Link to="/login">login</Link> 
       <Routes>
         <Route path="/" element={
-          <FileList 
-            files={fileListArr}
-            onFileClick={fileClick}
-            onFileDelete={deleteFile}
-            onSaveEdit={updateFileName}
+          <Navigate 
+            replace to="/login"
           />
         }>
         </Route>
@@ -280,9 +272,17 @@ function App() {
           />
         }>
         </Route>
+        <Route path="/index" element={
+          <Index 
+            files={fileListArr}
+            onFileClick={fileClick}
+            onFileDelete={deleteFile}
+            onSaveEdit={updateFileName}
+          />
+        }>
+        </Route>
       </Routes>
       </BrowserRouter>
-      </div>
   );
 }
 
