@@ -32,8 +32,8 @@
   },
   "homepage": "./",
   "build": {
-    "appId": "cloudDoc",
-    "productName": "七牛云文档",
+    "appId": "vobx-tools",
+    "productName": "VOBX工具盒子",
     "copyright": "Copyright © 2019 ${author}",
     "files": [
       "build/**/*",
