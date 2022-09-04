@@ -1,5 +1,5 @@
 {
-  "name": "cloud-doc",
+  "name": "vbox",
   "version": "1.0.0",
   "main": "main.js",
   "description": "Online Markdown Editor using Qiniu cloud service",
@@ -57,7 +57,7 @@
     },
     "dmg": {
       "background": "assets/appdmg.png",
-      "icon": "assets/icon.icns",
+      "icon": "assets/icon1.ico",
       "iconSize": 100,
       "contents": [
         {
