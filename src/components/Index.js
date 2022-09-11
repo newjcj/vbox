@@ -16,6 +16,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   const dataParam = useLocation()
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
+  const [active, setActive] = useState(1)
   const [value, setValue] = useState('')
   let node = useRef(null)
   const enterPressed = useKeyPress(13)
@@ -27,6 +28,10 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
     if (editItem.isNew) {
       onFileDelete(editItem.id)
     }
+  }
+  const selectItem = (index)=>{
+    console.log("aaaa----",index)
+    setActive(index)
   }
   const clickedItem = useContextMenu([
     {
@@ -79,10 +84,9 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
     }
   }, [files])
   useEffect(() => {
-    if (editStatus) {
-      node.current.focus()
-    }
-  }, [editStatus])
+    console.log("设置了active")
+    console.log(active)
+  }, [active])
   return (
     <div class="main1">
       <div class="row content-index">
@@ -130,32 +134,32 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text">价格提醒</div>
-                <div class="line"></div>
+                <div class="text" onClick={()=>{selectItem(1)}}>价格提醒</div>
+                <div className={`${active}` == 1 ? 'line active' : 'line'}></div>
               </div>
             </div>
             <div class="item">
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text">特价商品</div>
-                <div class="line active"></div>
+                <div class="text" onClick={()=>{selectItem(2)}} >特价商品</div>
+                <div className={`${active}` == 2 ? 'line active' : 'line'}></div>
               </div>
             </div>
             <div class="item">
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text">订单通知</div>
-                <div class="line"></div>
+                <div class="text" onClick={()=>{selectItem(3)}} >订单通知</div>
+                <div className={`${active}` == 3 ? 'line active' : 'line'}></div>
               </div>
             </div>
             <div class="item">
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text">其它</div>
-                <div class="line"></div>
+                <div class="text" onClick={()=>{selectItem(4)}} >其它</div>
+                <div className={`${active}` == 4 ? 'line active' : 'line'}></div>
               </div>
             </div>
           </div>
