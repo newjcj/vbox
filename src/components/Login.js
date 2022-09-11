@@ -84,7 +84,7 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
   }, [editStatus])
   return (
     <div class="main">
-      <div class='row'>
+      <div class='row row-nav'>
         <form>
           <div class="form-group username">
             <label for='username'>账号名</label>
@@ -92,7 +92,7 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
           </div>
           <div class="form-group password">
             <label for="password">密码</label>
-            <input type="text" id="passowrd" class="form-control" placeholder="请输入密码"></input>
+            <input type="password" id="passowrd" class="form-control" placeholder="请输入密码"></input>
           </div>
         </form>
         <div class="col-m-12 logindiv">
