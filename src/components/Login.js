@@ -12,9 +12,11 @@ import "./css/Login.scss"
 const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
   const navigate=useNavigate();
   function login(){
-    navigate("/index",{state:"aaaa"});
+    console.log(user)
+    //navigate("/index",{state:"aaaa"});
   }
   const [ editStatus, setEditStatus ] = useState(false)
+  const [ user, setUser ] = useState({nationCode:"+34",phoneNumber:"",password:""})
   const [ value, setValue ] = useState('')
   let node = useRef(null)
   const enterPressed = useKeyPress(13)
@@ -88,11 +90,11 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
         <form>
           <div class="form-group username">
             <label for='username'>账号名</label>
-            <input type="text" id="username" class="form-control" placeholder="请输入您的账号"></input>
+            <input type="text" id="username" value={user.phoneNumber} onChange={e=>{setUser({...user,phoneNumber:e.target.value})}} class="form-control" placeholder="请输入您的账号"></input>
           </div>
           <div class="form-group password">
             <label for="password">密码</label>
-            <input type="password" id="passowrd" class="form-control" placeholder="请输入密码"></input>
+            <input type="password" id="passowrd" value={user.password} onChange={e=>{setUser({...user,password:e.target.value})}} class="form-control" placeholder="请输入密码"></input>
           </div>
         </form>
         <div class="col-m-12 logindiv">
