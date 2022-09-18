@@ -35,7 +35,7 @@ const One = ({ rows}) => {
             <div class="content-text">
               <div class="title">{item.title}</div>
               <div class="article">
-                <p>111应商消息供应商消息应商dsf消息供应aa商消息供应商消息供应商消息供应商消息应商消ddsdfsdsdfsff息</p>
+                <p>111应商消息供应商消息应商dsa商消息供应商消息供应商消息供应商消息应商消ddsdfsdsdfsff息</p>
               </div>
             </div>
             <div class="content-bigimg">
