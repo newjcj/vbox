@@ -8,10 +8,14 @@ import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
+import One from './indexContent/One'
+import Two from './indexContent/Two'
+import Three from './indexContent/Three'
+import Four from './indexContent/Four'
 import { getParentNode } from '../utils/helper'
 import "./css/JcjIndex.scss"
 const Store = window.require('electron-store')
-const userStore = new Store({name: 'userStore'})
+const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
 
 
@@ -22,7 +26,10 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
+  const [rows, setRows] = useState([])
+  const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
+  const [top, setTop] = useState(0)
   let node = useRef(null)
   const enterPressed = useKeyPress(13)
   const escPressed = useKeyPress(27)
@@ -37,27 +44,45 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   const getData = (index) => {
     console.log(index)
     let url = baseUrl + "/api/merchant/message/price"
-    const user = userStore.get('user')
-    console.log(22222222222)
-    console.log(user)
-   axios({
-        url,
-        data:{},
-        method: 'POST',
-        responseType: 'stream',
-        headers: {'Session-Id': user.token}
-      }).then(response => {
-        console.log(response)
+    switch (index) {
+      case 1:
+        url = baseUrl + "/api/merchant/message/price"
+        break;
+      case 2:
+        url = baseUrl + "/api/merchant/message/goods"
+        break;
+      case 3:
+        url = baseUrl + "/api/merchant/message/order"
+        break;
+      case 4:
+        url = baseUrl + "/api/merchant/message/other"
+        break;
 
-        if(response.data.resultCode != "00000"){
-          message.info(response.data.returnMsg)
-        }else{
-          response.data.data.time = new Date().getTime()
-        }
+    }
+    const user = userStore.get('user')
+    console.log(user)
+    axios({
+      url,
+      data: { ...req },
+      method: 'POST',
+      responseType: 'stream',
+      headers: { 'Session-Id': user.token }
+    }).then(response => {
+      console.log(response)
+
+      if (response.data.resultCode != "00000") {
+        message.info(response.data.returnMsg)
+      } else {
+        response.data.data.time = new Date().getTime()
+        setRows(response.data.data.rows)
+      }
 
     }).catch(err => {
-          message.info(err.message)
+      message.info(err.message)
     })
+  }
+  const showTop = () => {
+    setTop(top == 1 ? 0 : 1)
   }
   const selectItem = (index) => {
     console.log("aaaa----", index)
@@ -118,13 +143,19 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
     console.log(active)
     getData(active)
   }, [active])
+  useEffect(() => {
+    console.log("top------")
+    console.log(top)
+  }, [top])
   return (
     <div class="main1">
       <div class="row content-index">
         <div class="col-md-12 navigate-index">
           <div class="row-top">
             <div class="nav text">应用工具</div>
-            <div class="nav actionsico">∧</div>
+            <div class="nav actionsico">
+              <div className={`${top}` == true ? 'arrow top' : 'arrow bottom'} onClick={() => { setTop(top == 1 ? 0 : 1) }}></div>
+            </div>
           </div>
           <div class="row-nav d-flex flex-row bd-highlight">
             <div class="item">
@@ -194,37 +225,11 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
               </div>
             </div>
           </div>
-          <div class="row-content bd-highlight">
-            <div class="wrapper">
-              <div class="item">
-                <div class="content-img">
-                  <img src="images/3.png" />
-                </div>
-                <div class="content-text">
-                  <div class="title">供应商消息</div>
-                  <div class="article">
-                    <p>供供应应商消息供应商消息供应商消息应商消息供应商消息供应商消息应商消息供应商消息供应商消息商消息供应商消息供应商消息供应商消息供应商消息供应商消息供应商消息应商消ddsdfsdsdfsff息</p>
-                  </div>
-                </div>
-                <div class="content-bigimg">
-                  <img src="images/2.png" />
-                </div>
-              </div>
-            </div>
-            <div class="wrapper">
-              <div class="item">
-                <div class="content-img">
-                  <img src="images/3.png" />
-                </div>
-                <div class="content-text">
-                  <div class="title">供应商消息</div>
-                  <div class="article">供供应商消息供应商消息供应商消息供应商消息供应商消息供应商消息供应商消息应商消息</div>
-                </div>
-                <div class="content-bigimg">
-                  <img src="images/2.png" />
-                </div>
-              </div>
-            </div>
+          <div>
+            {active == 1 && <One rows={rows} />}
+            {active == 2 && <Two rows={rows} />}
+            {active == 3 && <Three rows={rows} />}
+            {active == 4 && <Four rows={rows} />}
           </div>
         </div>
       </div>

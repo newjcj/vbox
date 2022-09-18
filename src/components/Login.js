@@ -24,7 +24,7 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
   function login(){
     console.log(user)
     console.log("-----a",userStore.get('user'))
-    let url = baseUrl + "/api/consumer/user/login/v2"
+    let url = baseUrl + "/api/merchant/user/login"
 
    axios({
         url,
@@ -49,7 +49,7 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
     })
   }
   const [ editStatus, setEditStatus ] = useState(false)
-  const [ user, setUser ] = useState({nationCode:"+34",phoneNumber:"",password:""})
+  const [ user, setUser ] = useState({nationCode:"+34",userName:"",password:""})
   const [ value, setValue ] = useState('')
   let node = useRef(null)
   const enterPressed = useKeyPress(13)
@@ -126,11 +126,15 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
   },[])
   return (
     <div class="main">
+        <div class="logo">
+          <img src="images/logo2x.png" />
+
+        </div>
       <div class='row row-nav'>
         <form>
           <div class="form-group username">
             <label for='username'>账号名</label>
-            <input type="text" id="username" value={user.phoneNumber} onChange={e=>{setUser({...user,phoneNumber:e.target.value})}} class="form-control" placeholder="请输入您的账号"></input>
+            <input type="text" id="username" value={user.userName} onChange={e=>{setUser({...user,userName:e.target.value})}} class="form-control" placeholder="请输入您的账号"></input>
           </div>
           <div class="form-group password">
             <label for="password">密码</label>
