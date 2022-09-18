@@ -157,37 +157,39 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
               <div className={`${top}` == true ? 'arrow top' : 'arrow bottom'} onClick={() => { setTop(top == 1 ? 0 : 1) }}></div>
             </div>
           </div>
-          <div class="row-nav d-flex flex-row bd-highlight">
-            <div class="item">
-              <div class="wrap-jcj">
-                <div class="image">
-                  <img src="images/1.png" />
+          <div className={`${top}` == true ? "show no" : "show"}>
+            <div className={`${top}` == true ? "row-nav d-flex flex-row bd-highlight" : "row-nav d-flex flex-row bd-highlight show"}>
+              <div class="item">
+                <div class="wrap-jcj">
+                  <div class="image">
+                    <img src="images/1.png" />
+                  </div>
+                  <div class="text">扫码查价</div>
                 </div>
-                <div class="text">扫码查价</div>
               </div>
-            </div>
-            <div class="item">
-              <div class="wrap-jcj">
-                <div class="image">
-                  <img src="images/2.png" />
+              <div class="item">
+                <div class="wrap-jcj">
+                  <div class="image">
+                    <img src="images/2.png" />
+                  </div>
+                  <div class="text">线上店铺</div>
                 </div>
-                <div class="text">线上店铺</div>
               </div>
-            </div>
-            <div class="item">
-              <div class="wrap-jcj">
-                <div class="image">
-                  <img src="images/3.png" />
+              <div class="item">
+                <div class="wrap-jcj">
+                  <div class="image">
+                    <img src="images/3.png" />
+                  </div>
+                  <div class="text">更多服务</div>
                 </div>
-                <div class="text">更多服务</div>
               </div>
-            </div>
-            <div class="item">
-              <div class="wrap-jcj">
-                <div class="image">
-                  <img src="images/4.png" />
+              <div class="item">
+                <div class="wrap-jcj">
+                  <div class="image">
+                    <img src="images/4.png" />
+                  </div>
+                  <div class="text">系统设置</div>
                 </div>
-                <div class="text">系统设置</div>
               </div>
             </div>
           </div>

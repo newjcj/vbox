@@ -32,21 +32,24 @@
           display: inline-block;
           width: 7%;
           height: 20px;
-          .arrow{
+
+          .arrow {
             content: " ";
-            margin-top:8px;
+            margin-top: 8px;
             display: inline-block;
             height: 12px;
             width: 12px;
             border-width: 2px 2px 0 0;
-            border-color: rgba(255,255,255,0.79);
+            border-color: rgba(255, 255, 255, 0.79);
             border-style: solid;
             position: absolute;
           }
+
           .arrow.top {
             -webkit-transform: matrix(0.71, -0.71, 0.71, 0.71, 0, 0);
             transform: matrix(0.71, -0.71, 0.71, 0.71, 0, 0);
           }
+
           .arrow.bottom {
             -webkit-transform: matrix(0.71, 0.71, 0.71, -0.71, 0, 0);
             transform: matrix(0.71, 0.71, 0.71, -0.71, 0, 0);
@@ -54,51 +57,68 @@
         }
       }
 
-      .row-nav {
-        display: flex;
-        padding: 0;
-        height: 120px;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
+      .show {
+        .row-nav {
+          padding: 0;
+          height: 120px;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          display: none;
 
-        .item {
-          justify-content: space-around;
-          text-align: center;
-          line-height: 120px;
-          width: 33.33%;
-          height: 100%;
-          .text{
-            color:#fff;
-          }
-        }
+          .item {
+            justify-content: space-around;
+            text-align: center;
+            line-height: 120px;
+            width: 33.33%;
+            height: 100%;
 
-        .wrap-jcj {
-          width: 80%;
-          height: 78%;
-          margin-left: 10%;
-          margin-top: 8%;
-
-          .image {
-            height: 75%;
-            width: 100%;
-            cursor: pointer;
-
-            img {
-              margin-top: -60px;
-              width: 50%;
-              height: auto;
+            .text {
+              color: #fff;
             }
           }
 
-          .text {
-            margin-top: -50px;
-            height: 25%;
-            font-size:15px;
-            width: 100%;
+          .wrap-jcj {
+            width: 80%;
+            height: 78%;
+            margin-left: 10%;
+            margin-top: 8%;
+
+            .image {
+              height: 75%;
+              width: 100%;
+              cursor: pointer;
+
+              img {
+                margin-top: -60px;
+                width: 50%;
+                height: auto;
+              }
+            }
+
+            .text {
+              margin-top: -50px;
+              height: 25%;
+              font-size: 15px;
+              width: 100%;
+            }
+
           }
+
         }
 
+        opacity: 1;
+        transition: all 0.25s ease-in-out;
+      }
+
+      .show.no {
+        visibility: hidden;
+        opacity: 0;
+        margin-top:-25%;
+      }
+
+      .row-nav.show {
+        display: none;
       }
 
       .row-content {
