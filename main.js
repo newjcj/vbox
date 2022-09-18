@@ -7,6 +7,7 @@ const Store = require('electron-store')
 const QiniuManager = require('./src/utils/QiniuManager')
 const settingsStore = new Store({ name: 'Settings'})
 const fileStore = new Store({name: 'Files Data'})
+const userStore = new Store({name: 'userStore'})
 let mainWindow, settingsWindow
 
 const createManager = () => {
@@ -83,6 +84,9 @@ app.on('ready', () => {
         mainWindow.webContents.send('file-downloaded', {status: 'no-file', id})
       }
     })
+  })
+  ipcMain.on('save-user',(event,user)=>{
+      userStore.set('user',user)
   })
   ipcMain.on('upload-all-to-qiniu', () => {
     mainWindow.webContents.send('loading-status', true)

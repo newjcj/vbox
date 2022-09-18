@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
 import { getParentNode } from '../utils/helper'
-import "./css/Index.scss"
+import "./css/JcjIndex.scss"
 
 
 //const navigate=useNavigate();

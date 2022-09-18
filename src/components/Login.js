@@ -13,12 +13,19 @@ import useContextMenu from '../hooks/useContextMenu'
 import { getParentNode } from '../utils/helper'
 import "./css/Login.scss"
 var baseUrl = "https://api-vbox.jpqapro.com"
+const { remote, ipcRenderer } = window.require('electron')
+const Store = window.require('electron-store')
+const userStore = new Store({name: 'userStore'})
+// 配置登录过期时间（秒）
+const EXPIRE_TIME=3600
 
 const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
-  const navigate=useNavigate();
+  const navigate=useNavigate()
   function login(){
     console.log(user)
+    console.log("-----a",userStore.get('user'))
     let url = baseUrl + "/api/consumer/user/login/v2"
+
    axios({
         url,
         data:{...user},
@@ -27,9 +34,13 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
         headers: {'Cache-Control': 'no-cache'}
       }).then(response => {
         console.log(response)
+
         if(response.data.resultCode != "00000"){
           message.info(response.data.returnMsg)
         }else{
+          response.data.data.time = new Date().getTime()
+         ipcRenderer.send("save-user",response.data.data)
+          //userStore.set('user',response.data.data)
           navigate("/index",{state:"aaaa"});
         }
 
@@ -106,6 +117,13 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
       node.current.focus()
     }
   }, [editStatus])
+  useEffect(()=>{
+      let user = userStore.get('user')
+        const timeStamp = new Date().getTime()
+        if(user.token != undefined && user.time != undefined && ((timeStamp - user.time)<(EXPIRE_TIME*1000))){
+          navigate("/index",{state:"aaaa"});
+    }
+  },[])
   return (
     <div class="main">
       <div class='row row-nav'>
