@@ -74,22 +74,31 @@
             width: 90px;
           }
         }
+
+        .title {
+          color: #fff;
+          font-size: 18px;
+          font-weight: 500;
+          height: 30px;
+          width: 100%;
+          overflow: hidden;
+        }
       }
 
-        .content-bigimg {
-          justify-content: space-around;
-          text-align: center;
-          line-height: 100px;
-          width: 18%;
-          height: 100%;
-          border-bottom: 1px solid #ccc;
+      .content-bigimg {
+        justify-content: space-around;
+        text-align: center;
+        line-height: 100px;
+        width: 18%;
+        height: 100%;
+        border-bottom: 1px solid #ccc;
 
-          img {
-            width: 80px;
-            height: auto;
-            border-radius: 12px;
-          }
+        img {
+          width: 80px;
+          height: auto;
+          border-radius: 12px;
         }
       }
     }
   }
+}

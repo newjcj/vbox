@@ -29,7 +29,7 @@ const Four = ({ rows}) => {
         <div class="wrapper">
           <div class="three-item">
             <div class="content-img">
-              <img src="images/t3.png" />
+              <img src="images/t2.png" />
             </div>
             <div class="content-text">
               <div class="title">新订单通知 </div>
@@ -37,7 +37,6 @@ const Four = ({ rows}) => {
                 <div class="price1">
                   €{item.money}
                 </div>
-
                 <div class="price2">
                   共{item.count}件商品
                 </div>

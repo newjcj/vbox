@@ -29,7 +29,7 @@ const Two = ({ rows}) => {
         <div class="wrapper">
           <div class="two-item">
             <div class="content-img">
-              <img src="images/t2.png" />
+              <img src="images/t3.png" />
             </div>
             <div class="content-text">
               <div class="title">{item.title}</div>
