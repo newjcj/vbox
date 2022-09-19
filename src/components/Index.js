@@ -153,6 +153,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
         <div class="col-md-12 navigate-index">
           <div class="row-top">
             <div class="nav text">应用工具</div>
+
             <div class="nav actionsico">
               <div className={`${top}` == true ? 'arrow top' : 'arrow bottom'} onClick={() => { setTop(top == 1 ? 0 : 1) }}></div>
             </div>
@@ -198,7 +199,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text" onClick={() => { selectItem(1) }}>价格提醒</div>
+                <div class="text lineee" onClick={() => { selectItem(1) }}>价格提醒</div>
                 <div className={`${active}` == 1 ? 'line active' : 'line'}></div>
               </div>
             </div>
@@ -206,7 +207,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text" onClick={() => { selectItem(2) }} >特价商品</div>
+                <div class="text lineee" onClick={() => { selectItem(2) }} >特价商品</div>
                 <div className={`${active}` == 2 ? 'line active' : 'line'}></div>
               </div>
             </div>
@@ -214,7 +215,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text" onClick={() => { selectItem(3) }} >订单通知</div>
+                <div class="text lineee" onClick={() => { selectItem(3) }} >订单通知</div>
                 <div className={`${active}` == 3 ? 'line active' : 'line'}></div>
               </div>
             </div>
@@ -222,7 +223,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
               <div class="wrap-jcj">
                 <div class="image">
                 </div>
-                <div class="text" onClick={() => { selectItem(4) }} >其它</div>
+                <div class="text lineee" onClick={() => { selectItem(4) }} >其它</div>
                 <div className={`${active}` == 4 ? 'line active' : 'line'}></div>
               </div>
             </div>

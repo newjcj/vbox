@@ -27,7 +27,7 @@ const Four = ({ rows}) => {
     <div class="row-content bd-highlight">
       {rows.map((item,key)=> (
         <div class="wrapper">
-          <div class="item">
+          <div class="four-item">
             <div class="content-img">
               <img src="images/t4.png" />
             </div>

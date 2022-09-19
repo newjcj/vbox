@@ -27,14 +27,22 @@ const Two = ({ rows}) => {
     <div class="row-content bd-highlight">
       {rows.map((item,key) => (
         <div class="wrapper">
-          <div class="item">
+          <div class="two-item">
             <div class="content-img">
               <img src="images/t2.png" />
             </div>
             <div class="content-text">
               <div class="title">{item.title}</div>
+              <div class="price">
+                <div class="price1">
+                  现价：{item.price}€
+                </div>
+                <div class="price2">
+                  {item.originPrice}€
+                </div>
+              </div>
               <div class="article">
-                <p>two供供应应商11消息供应商消息应商消息供应商消息供应商消息供应商消息供应商消息应商消ddsdfsdsdfsff息</p>
+                来自：{item.from}
               </div>
             </div>
             <div class="content-bigimg">

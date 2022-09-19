@@ -14,7 +14,7 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
-const One = ({ rows}) => {
+const One = ({ rows }) => {
   const dataParam = useLocation()
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
@@ -26,16 +26,21 @@ const One = ({ rows}) => {
 
   return (
     <div class="row-content bd-highlight">
-      {rows.map((item,key) => (
+      <div class="attention">
+        *数据来自第三方仅供参考
+      </div>
+      {rows.map((item, key) => (
         <div class="wrapper">
-          <div class="item">
+          <div class="one-item">
             <div class="content-img">
               <img src="images/t1.png" />
             </div>
             <div class="content-text">
               <div class="title">{item.title}</div>
+              <div class="price">最新价格：{item.price}€</div>
               <div class="article">
-                <p>111应商消息供应商消息应商sa商消息供应商消息供应商消息供应商消息应商消ddsdfsdsdfsff息</p>
+
+                {item.code}
               </div>
             </div>
             <div class="content-bigimg">

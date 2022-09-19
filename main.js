@@ -21,7 +21,7 @@ app.on('ready', () => {
   Menu.setApplicationMenu(null) // null值取消顶部菜单栏 
   const mainWindowConfig = {
     width: 540,
-    height: 768,   
+    height: 868,   
     title: "vobx工具盒子",
     webPreferences: {
       nodeIntegration: true,

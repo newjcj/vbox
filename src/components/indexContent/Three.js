@@ -27,14 +27,24 @@ const Four = ({ rows}) => {
     <div class="row-content bd-highlight">
       {rows.map((item,key)=> (
         <div class="wrapper">
-          <div class="item">
+          <div class="three-item">
             <div class="content-img">
               <img src="images/t3.png" />
             </div>
             <div class="content-text">
-              <div class="title">{item.title}</div>
+              <div class="title">新订单通知 </div>
+              <div class="price">
+                <div class="price1">
+                  €{item.money}
+                </div>
+
+                <div class="price2">
+                  共{item.count}件商品
+                </div>
+              </div>
+
               <div class="article">
-                <p>供供应应商消息供应应商消息供应商消供应商消息供应商消息应商消ddsdfsdsdfsff息</p>
+                No：{item.orderNo}
               </div>
             </div>
             <div class="content-bigimg">

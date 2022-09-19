@@ -32,6 +32,7 @@
           display: inline-block;
           width: 7%;
           height: 20px;
+          cursor: pointer;
 
           .arrow {
             content: " ";
@@ -98,8 +99,8 @@
 
             .text {
               margin-top: -50px;
-              height: 25%;
               font-size: 15px;
+              height: 25%;
               width: 100%;
             }
 
@@ -114,7 +115,7 @@
       .show.no {
         visibility: hidden;
         opacity: 0;
-        margin-top:-25%;
+        margin-top: -25%;
       }
 
       .row-nav.show {
@@ -260,6 +261,15 @@
             color: #fff;
           }
 
+          .text.lineee {
+            margin-top: -50px;
+            cursor: pointer;
+            font-size:16px;
+            font-weight:550;
+            height: 25%;
+            width: 100%;
+            color: #fff;
+          }
           .line {
             margin-top: 76px;
             cursor: pointer;
