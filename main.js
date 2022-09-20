@@ -32,6 +32,8 @@ app.on('ready', () => {
   }
   const urlLocation = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, './index.html')}`
   mainWindow = new AppWindow(mainWindowConfig, urlLocation)
+  // 不让窗口最大化
+  mainWindow.setMaximizable(false)
   // 在开发环境和生产环境均可通过快捷键打开devTools
   globalShortcut.register('ctrl+i', function () {
     mainWindow.webContents.openDevTools()

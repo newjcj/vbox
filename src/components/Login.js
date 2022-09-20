@@ -54,6 +54,9 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
   let node = useRef(null)
   const enterPressed = useKeyPress(13)
   const escPressed = useKeyPress(27)
+  const closeWindow = ()=>{
+    remote.getCurrentWindow().close()
+  }
   const closeSearch = (editItem) => {
     setEditStatus(false)
     setValue('')
@@ -126,6 +129,10 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
   },[])
   return (
     <div class="main">
+        <div id="main-delete" onClick={()=>{closeWindow()}}>
+          x
+        </div>
+
         <div class="logo">
           <img src="images/logo2x.png" />
 
