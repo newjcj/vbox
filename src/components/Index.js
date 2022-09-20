@@ -16,6 +16,7 @@ import Four from './indexContent/Four'
 import { getParentNode } from '../utils/helper'
 import "./css/JcjIndex.scss"
 const Store = window.require('electron-store')
+const { shell} = window.require('electron')
 const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
 
@@ -88,6 +89,9 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   const selectItem = (index) => {
     console.log("aaaa----", index)
     setActive(index)
+  }
+  const openUrl = (url) => {
+    shell.openExternal(url)
   }
   const clickedItem = useContextMenu([
     {
@@ -163,7 +167,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
           <div className={`${top}` == true ? "show no" : "show"}>
             <div className={`${top}` == true ? "row-nav d-flex flex-row bd-highlight" : "row-nav d-flex flex-row bd-highlight show"}>
               <div class="item">
-                <div class="wrap-jcj">
+                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
                   <div class="image">
                     <img src="images/1.png" />
                   </div>
@@ -171,7 +175,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj">
+                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
                   <div class="image">
                     <img src="images/2.png" />
                   </div>
@@ -179,7 +183,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj">
+                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
                   <div class="image">
                     <img src="images/3.png" />
                   </div>
@@ -187,7 +191,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj">
+                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
                   <div class="image">
                     <img src="images/4.png" />
                   </div>
