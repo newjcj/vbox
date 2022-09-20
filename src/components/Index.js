@@ -8,6 +8,7 @@ import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
+import Top from './indexContent/Top'
 import One from './indexContent/One'
 import Two from './indexContent/Two'
 import Three from './indexContent/Three'
@@ -149,6 +150,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   }, [top])
   return (
     <div class="main1">
+      <Top rows={rows} />
       <div class="row content-index">
         <div class="col-md-12 navigate-index">
           <div class="row-top">

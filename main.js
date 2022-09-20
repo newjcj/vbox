@@ -5,9 +5,9 @@ const menuTemplate = require('./src/menuTemplate')
 const AppWindow = require('./src/AppWindow')
 const Store = require('electron-store')
 const QiniuManager = require('./src/utils/QiniuManager')
-const settingsStore = new Store({ name: 'Settings'})
-const fileStore = new Store({name: 'Files Data'})
-const userStore = new Store({name: 'userStore'})
+const settingsStore = new Store({ name: 'Settings' })
+const fileStore = new Store({ name: 'Files Data' })
+const userStore = new Store({ name: 'userStore' })
 let mainWindow, settingsWindow
 
 const createManager = () => {
@@ -21,8 +21,10 @@ app.on('ready', () => {
   Menu.setApplicationMenu(null) // null值取消顶部菜单栏 
   const mainWindowConfig = {
     width: 540,
-    height: 868,   
+    height: 868,
     title: "vobx工具盒子",
+    frame: false,
+    resizable: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -32,12 +34,18 @@ app.on('ready', () => {
   mainWindow = new AppWindow(mainWindowConfig, urlLocation)
   // 在开发环境和生产环境均可通过快捷键打开devTools
   globalShortcut.register('ctrl+i', function () {
-	  mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
+  })
+  globalShortcut.register('ctrl+w', function () {
+    mainWindow.close()
+  })
+  globalShortcut.register('ctrl+q', function () {
+    mainWindow.minimize()
   })
   mainWindow.on('closed', () => {
     mainWindow = null
   })
-    // set the menu
+  // set the menu
   //let menu = Menu.buildFromTemplate(menuTemplate)
   //Menu.setApplicationMenu(menu)
   // hook up main events
@@ -47,7 +55,7 @@ app.on('ready', () => {
     const settingsWindowConfig = {
       width: 500,
       height: 400,
-      parent: mainWindow  
+      parent: mainWindow
     }
     const settingsFileLocation = `file://${path.join(__dirname, './settings/settings.html')}`
     settingsWindow = new AppWindow(settingsWindowConfig, settingsFileLocation)
@@ -74,19 +82,25 @@ app.on('ready', () => {
       const localUpdatedTime = filesObj[id].updatedAt
       if (serverUpdatedTime > localUpdatedTime || !localUpdatedTime) {
         manager.downloadFile(key, path).then(() => {
-          mainWindow.webContents.send('file-downloaded', {status: 'download-success', id})
+          mainWindow.webContents.send('file-downloaded', { status: 'download-success', id })
         })
       } else {
-        mainWindow.webContents.send('file-downloaded', {status: 'no-new-file', id})
+        mainWindow.webContents.send('file-downloaded', { status: 'no-new-file', id })
       }
     }, (error) => {
       if (error.statusCode === 612) {
-        mainWindow.webContents.send('file-downloaded', {status: 'no-file', id})
+        mainWindow.webContents.send('file-downloaded', { status: 'no-file', id })
       }
     })
   })
-  ipcMain.on('save-user',(event,user)=>{
-      userStore.set('user',user)
+  ipcMain.on('save-user', (event, user) => {
+    userStore.set('user', user)
+  })
+  ipcMain.on('w-close', function () {
+    mainWindow.close()
+  })
+  ipcMain.on('w-min', function () {
+    mainWindow.minimize();
   })
   ipcMain.on('upload-all-to-qiniu', () => {
     mainWindow.webContents.send('loading-status', true)
@@ -119,7 +133,7 @@ app.on('ready', () => {
         qiniuMenu.submenu.items[number].enabled = toggle
       })
     }
-    const qiniuIsConfiged =  ['accessKey', 'secretKey', 'bucketName'].every(key => !!settingsStore.get(key))
+    const qiniuIsConfiged = ['accessKey', 'secretKey', 'bucketName'].every(key => !!settingsStore.get(key))
     if (qiniuIsConfiged) {
       switchItems(true)
     } else {
