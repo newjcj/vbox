@@ -41,7 +41,7 @@ const Top = ({ rows }) => {
           <div class="top-mini" onClick={() => { miniWindow() }}>
             —
           </div>
-          <div class="delete" onClick={() => { miniWindow() }}>
+          <div class="delete" onClick={() => { closeWindow() }}>
             x
           </div>
         </div>
