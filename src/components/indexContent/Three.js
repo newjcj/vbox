@@ -29,14 +29,23 @@ const Four = ({ rows }) => {
   const [value, setValue] = useState('')
   let node = useRef(null)
 
-  const onScroll=()=>{
+  const onScroll = (e) => {
     console.log("--999")
+    let divEl = e.target
+    console.log(e.target.scrollTop)
+    console.log(e.target.clientHeight)
+    console.log(e.target.scrollHeight)
+    console.log(sss.current.height)
+    console.log( divEl.scrollTop + divEl.clientHeight)
+    if (divEl.scrollTop + divEl.clientHeight + 20 > divEl.scrollHeight) {
+      console.log('add date--')
+    }
   }
 
   useEffect(() => {
 
     console.log('9999')
-    sss.current.addEventListener("scroll",onScroll)
+    sss.current.addEventListener("scroll", onScroll)
   }, [sss.current])
 
   return (
