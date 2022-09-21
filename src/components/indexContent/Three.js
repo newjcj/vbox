@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from "axios"
 import { BrowserRouter as Router, useNavigate, Route, Navigator, useLocation, Routes, Link } from 'react-router-dom'
+import { findDOMNode } from 'react-dom';
 import { Button, message } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -12,21 +13,36 @@ const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
 
 
+
 //const navigate=useNavigate();
 //navigate("/test");
-const Four = ({ rows}) => {
+const Four = ({ rows }) => {
+
+  const sss = useRef(null)
   const dataParam = useLocation()
   console.log(dataParam.state)
+
+
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
   const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
   let node = useRef(null)
 
+  const onScroll=()=>{
+    console.log("--999")
+  }
+
+  useEffect(() => {
+
+    console.log('9999')
+    sss.current.addEventListener("scroll",onScroll)
+  }, [sss.current])
+
   return (
-    <div class="row-content bd-highlight">
-      {rows.map((item,key)=> (
-        <div class="wrapper">
+    <div class="row-content bd-highlight" id="three-wrapper" ref={sss}>
+      {rows.map((item, key) => (
+        <div class="wrapper" >
           <div class="three-item">
             <div class="content-img">
               <img src="images/t2.png" />

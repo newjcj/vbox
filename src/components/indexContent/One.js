@@ -39,7 +39,6 @@ const One = ({ rows }) => {
               <div class="title">{item.title}</div>
               <div class="price">最新价格：{item.price}€</div>
               <div class="article">
-
                 {item.code}
               </div>
             </div>

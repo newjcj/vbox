@@ -16,7 +16,7 @@ import Four from './indexContent/Four'
 import { getParentNode } from '../utils/helper'
 import "./css/JcjIndex.scss"
 const Store = window.require('electron-store')
-const { shell} = window.require('electron')
+const { shell } = window.require('electron')
 const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
 
@@ -90,8 +90,29 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
     console.log("aaaa----", index)
     setActive(index)
   }
-  const openUrl = (url) => {
-    shell.openExternal(url)
+  const openUrl = (index) => {
+
+    const user = userStore.get('user')
+    let url = baseUrl + "/api/merchant/shop/query/price/url"
+    axios({
+      url,
+      data: { ...req },
+      method: 'POST',
+      responseType: 'stream',
+      headers: { 'Session-Id': user.token }
+    }).then(response => {
+      console.log(response)
+
+      if (response.data.resultCode != "00000") {
+        message.info(response.data.returnMsg)
+      } else {
+        response.data.data.time = new Date().getTime()
+        shell.openExternal(response.data.data.url)
+      }
+
+    }).catch(err => {
+      message.info(err.message)
+    })
   }
   const clickedItem = useContextMenu([
     {
@@ -167,7 +188,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
           <div className={`${top}` == true ? "show no" : "show"}>
             <div className={`${top}` == true ? "row-nav d-flex flex-row bd-highlight" : "row-nav d-flex flex-row bd-highlight show"}>
               <div class="item">
-                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
+                <div class="wrap-jcj" onClick={() => { openUrl(1) }}>
                   <div class="image">
                     <img src="images/1.png" />
                   </div>
@@ -175,7 +196,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
+                <div class="wrap-jcj" onClick={() => { openUrl("http://www.qq.com") }}>
                   <div class="image">
                     <img src="images/2.png" />
                   </div>
@@ -183,7 +204,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
+                <div class="wrap-jcj" onClick={() => { openUrl("http://www.qq.com") }}>
                   <div class="image">
                     <img src="images/3.png" />
                   </div>
@@ -191,7 +212,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj" onClick={()=>{openUrl("http://www.qq.com")}}>
+                <div class="wrap-jcj" onClick={() => { openUrl("http://www.qq.com") }}>
                   <div class="image">
                     <img src="images/4.png" />
                   </div>
