@@ -1,0 +1,58 @@
+.Top {
+    position: relative;
+    top: 0px;
+    background: rgba(1, 1, 1, 0.3);
+    width: 100%;
+    height: 33px;
+
+    .wrapper {
+        display: flex;
+        width: 100%;
+        height: 100%;
+
+        #logo {
+            width: 30%;
+            -webkit-app-region: drag;
+
+            img {
+                height: 25px;
+                margin-top: 3px;
+                margin-left: 12px;
+                width: auto;
+            }
+        }
+
+        #write {
+            width: 62%;
+            -webkit-app-region: drag;
+        }
+
+        #handle {
+            position:relative;
+            display:block;
+            width: 15%;
+            .top-mini {
+                display:inline-block;
+                font-size: 14px;
+                color: #fff;
+                height: 22px;
+                width: 28px;
+                cursor: pointer;
+                text-align: right;
+                cursor:pointer;
+            }
+            .delete {
+                display:inline-block;
+                font-size: 20px;
+                color: #fff;
+                cursor: pointer;
+                height: 22px;
+                cursor:pointer;
+                width: 33px;
+                text-align:center;
+                margin-left:8px;
+                line-height: 23px;
+            }
+        }
+    }
+}

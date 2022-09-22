@@ -1,5 +1,5 @@
 {
-  "name": "cloud-doc",
+  "name": "vbox",
   "version": "1.0.0",
   "main": "main.js",
   "description": "Online Markdown Editor using Qiniu cloud service",
@@ -10,6 +10,7 @@
   "repository": "https://github.com/vikingmute/clouddoc",
   "private": true,
   "dependencies": {
+    "antd": "^4.23.2",
     "bootstrap": "^4.3.1",
     "electron-store": "^4.0.0",
     "react-router-dom": "^6.3.0",
@@ -32,8 +33,8 @@
   },
   "homepage": "./",
   "build": {
-    "appId": "cloudDoc",
-    "productName": "七牛云文档",
+    "appId": "vobx-tools",
+    "productName": "VOBX工具盒子",
     "copyright": "Copyright © 2019 ${author}",
     "files": [
       "build/**/*",
@@ -57,7 +58,7 @@
     },
     "dmg": {
       "background": "assets/appdmg.png",
-      "icon": "assets/icon.icns",
+      "icon": "assets/icon1.ico",
       "iconSize": 100,
       "contents": [
         {

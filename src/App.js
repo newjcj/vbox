@@ -3,7 +3,7 @@ import { faPlus, faFileImport } from '@fortawesome/free-solid-svg-icons'
 import SimpleMDE from "react-simplemde-editor"
 import uuidv4 from 'uuid/v4'
 import { flattenArr, objToArr, timestampToString } from './utils/helper'
-import {BrowserRouter,useNavigate,Routes,Route,Navigate,Link,Outlet} from 'react-router-dom'
+import {HashRouter,BrowserRouter,useNavigate,Routes,Route,Navigate,Link,Outlet} from 'react-router-dom'
 import fileHelper from './utils/fileHelper'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -255,7 +255,7 @@ function App() {
     'loading-status': (message, status) => { setLoading(status) }
   })
   return (
-      <BrowserRouter>
+      <HashRouter>
       <Routes>
         <Route path="/" element={
           <Navigate 
@@ -282,7 +282,7 @@ function App() {
         }>
         </Route>
       </Routes>
-      </BrowserRouter>
+      </HashRouter>
   );
 }
 
