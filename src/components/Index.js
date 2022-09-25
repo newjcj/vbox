@@ -16,7 +16,7 @@ import Four from './indexContent/Four'
 import { getParentNode } from '../utils/helper'
 import "./css/JcjIndex.scss"
 const Store = window.require('electron-store')
-const { shell } = window.require('electron')
+const { shell,app } = window.require('electron')
 const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
 
@@ -62,6 +62,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
 
     }
     const user = userStore.get('user')
+    console.log('aaaa----')
     console.log(user)
     axios({
       url,

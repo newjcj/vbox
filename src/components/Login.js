@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router,useNavigate, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router, useNavigate, Routes, Link } from 'react-router-dom'
 import axios from "axios"
 import { DatePicker } from 'antd'
 import { Button, message } from 'antd'
@@ -15,46 +15,46 @@ import "./css/Login.scss"
 var baseUrl = "https://api-vbox.jpqapro.com"
 const { remote, ipcRenderer } = window.require('electron')
 const Store = window.require('electron-store')
-const userStore = new Store({name: 'userStore'})
+const userStore = new Store({ name: 'userStore' })
 // 配置登录过期时间（秒）
-const EXPIRE_TIME=3600
+const EXPIRE_TIME = 3600
 
-const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
-  const navigate=useNavigate()
-  function login(){
+const Login = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
+  const navigate = useNavigate()
+  function login() {
     console.log(user)
-    console.log("-----a",userStore.get('user'))
+    console.log("-----a", userStore.get('user'))
     let url = baseUrl + "/api/merchant/user/login"
 
-   axios({
-        url,
-        data:{...user},
-        method: 'POST',
-        responseType: 'stream',
-        headers: {'Cache-Control': 'no-cache'}
-      }).then(response => {
-        console.log(response)
+    axios({
+      url,
+      data: { ...user },
+      method: 'POST',
+      responseType: 'stream',
+      headers: { 'Cache-Control': 'no-cache' }
+    }).then(response => {
+      console.log(response)
 
-        if(response.data.resultCode != "00000"){
-          message.info(response.data.returnMsg)
-        }else{
-          response.data.data.time = new Date().getTime()
-         ipcRenderer.send("save-user",response.data.data)
-          //userStore.set('user',response.data.data)
-          navigate("/index",{state:"aaaa"});
-        }
+      if (response.data.resultCode != "00000") {
+        message.info(response.data.returnMsg)
+      } else {
+        response.data.data.time = new Date().getTime()
+        ipcRenderer.send("save-user", response.data.data)
+        //userStore.set('user',response.data.data)
+        navigate("/index", { state: "aaaa" });
+      }
 
     }).catch(err => {
-          message.info(err.message)
+      message.info(err.message)
     })
   }
-  const [ editStatus, setEditStatus ] = useState(false)
-  const [ user, setUser ] = useState({nationCode:"+34",userName:"",password:""})
-  const [ value, setValue ] = useState('')
+  const [editStatus, setEditStatus] = useState(false)
+  const [user, setUser] = useState({ nationCode: "+34", userName: "", password: "" })
+  const [value, setValue] = useState('')
   let node = useRef(null)
   const enterPressed = useKeyPress(13)
   const escPressed = useKeyPress(27)
-  const closeWindow = ()=>{
+  const closeWindow = () => {
     remote.getCurrentWindow().close()
   }
   const closeSearch = (editItem) => {
@@ -104,7 +104,7 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
       setEditStatus(false)
       setValue('')
     }
-    if(escPressed && editStatus) {
+    if (escPressed && editStatus) {
       closeSearch(editItem)
     }
   })
@@ -120,36 +120,36 @@ const Login = ( { files, onFileClick, onSaveEdit, onFileDelete }) => {
       node.current.focus()
     }
   }, [editStatus])
-  useEffect(()=>{
-      let user = userStore.get('user')
-        const timeStamp = new Date().getTime()
-        if(user.token != undefined && user.time != undefined && ((timeStamp - user.time)<(EXPIRE_TIME*1000))){
-          navigate("/index",{state:"aaaa"});
+  useEffect(() => {
+    let user = userStore.get('user')
+    const timeStamp = new Date().getTime()
+    if (user != undefined && user.token != undefined && user.time != undefined && ((timeStamp - user.time) < (EXPIRE_TIME * 1000))) {
+      navigate("/index", { state: "aaaa" });
     }
-  },[])
+  }, [])
   return (
     <div class="main">
-        <div id="main-delete" onClick={()=>{closeWindow()}}>
-          x
-        </div>
+      <div id="main-delete" onClick={() => { closeWindow() }}>
+        x
+      </div>
 
-        <div class="logo">
-          <img src="images/logo2x.png" />
+      <div class="logo">
+        <img src="images/logo2x.png" />
 
-        </div>
+      </div>
       <div class='row row-nav'>
         <form>
           <div class="form-group username">
             <label for='username'>账号名</label>
-            <input type="text" id="username" value={user.userName} onChange={e=>{setUser({...user,userName:e.target.value})}} class="form-control" placeholder="请输入您的账号"></input>
+            <input type="text" id="username" value={user.userName} onChange={e => { setUser({ ...user, userName: e.target.value }) }} class="form-control" placeholder="请输入您的账号"></input>
           </div>
           <div class="form-group password">
             <label for="password">密码</label>
-            <input type="password" id="passowrd" value={user.password} onChange={e=>{setUser({...user,password:e.target.value})}} class="form-control" placeholder="请输入密码"></input>
+            <input type="password" id="passowrd" value={user.password} onChange={e => { setUser({ ...user, password: e.target.value }) }} class="form-control" placeholder="请输入密码"></input>
           </div>
         </form>
         <div class="col-m-12 logindiv">
-                  <button type="button" class="btn btn-primary login" onClick={login}>登录</button>
+          <button type="button" class="btn btn-primary login" onClick={login}>登录</button>
         </div>
         <div class="words">还没有账号，去注册。</div>
       </div>

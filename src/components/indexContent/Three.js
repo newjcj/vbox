@@ -27,16 +27,10 @@ const Four = ({ rows }) => {
   const [active, setActive] = useState(1)
   const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
-  let node = useRef(null)
 
   const onScroll = (e) => {
     console.log("--999")
     let divEl = e.target
-    console.log(e.target.scrollTop)
-    console.log(e.target.clientHeight)
-    console.log(e.target.scrollHeight)
-    console.log(sss.current.height)
-    console.log( divEl.scrollTop + divEl.clientHeight)
     if (divEl.scrollTop + divEl.clientHeight + 20 > divEl.scrollHeight) {
       console.log('add date--')
     }
