@@ -24,7 +24,8 @@
         .text {
           display: inline-block;
           width: 93%;
-          padding-left: 20px;
+          padding-left: 4%;
+          font-size:16px;
           color: #fff;
         }
 
@@ -38,8 +39,8 @@
             content: " ";
             margin-top: 8px;
             display: inline-block;
-            height: 12px;
-            width: 12px;
+            height: 10px;
+            width: 10px;
             border-width: 2px 2px 0 0;
             border-color: rgba(255, 255, 255, 0.79);
             border-style: solid;
@@ -61,7 +62,7 @@
       .show {
         .row-nav {
           padding: 0;
-          height: 120px;
+          height: 100px;
           width: 100%;
           background: rgba(255, 255, 255, 0.1);
           border-radius: 12px;
@@ -99,7 +100,7 @@
 
             .text {
               margin-top: -50px;
-              font-size: 15px;
+              font-size: 13px;
               height: 25%;
               width: 100%;
             }
@@ -171,8 +172,8 @@
 
               .title {
                 color: #fff;
-                font-size: 18px;
-                font-weight: 600;
+                font-size: 13px;
+                font-weight: 500;
                 height: 30px;
                 width: 100%;
                 overflow: hidden;
@@ -264,8 +265,8 @@
           .text.lineee {
             margin-top: -50px;
             cursor: pointer;
-            font-size:16px;
-            font-weight:550;
+            font-size:12px;
+            font-weight:520;
             height: 25%;
             width: 100%;
             color: #fff;

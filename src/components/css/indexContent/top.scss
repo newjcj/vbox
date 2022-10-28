@@ -23,14 +23,14 @@
         }
 
         #write {
-            width: 62%;
+            width: 44%;
             -webkit-app-region: drag;
         }
 
         #handle {
             position:relative;
             display:block;
-            width: 15%;
+            width: 25%;
             .top-mini {
                 display:inline-block;
                 font-size: 14px;
@@ -50,7 +50,7 @@
                 cursor:pointer;
                 width: 33px;
                 text-align:center;
-                margin-left:8px;
+                margin-left:12px;
                 line-height: 23px;
             }
         }
