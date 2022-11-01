@@ -8,6 +8,7 @@ import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
+import useNotice from '../hooks/useNotice'
 import Top from './indexContent/Top'
 import One from './indexContent/One'
 import Two from './indexContent/Two'
@@ -21,6 +22,9 @@ const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
 
 
+
+
+
 //const navigate=useNavigate();
 //navigate("/test");
 const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
@@ -32,6 +36,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
   const [top, setTop] = useState(0)
+  const notice1 = useNotice('aa')
   let node = useRef(null)
   const enterPressed = useKeyPress(13)
   const escPressed = useKeyPress(27)
@@ -43,6 +48,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
       onFileDelete(editItem.id)
     }
   }
+
   const getData = (index) => {
     console.log(index)
     let url = baseUrl + "/api/merchant/message/price"
