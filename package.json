@@ -1,6 +1,6 @@
 {
   "name": "vbox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "main.js",
   "description": "Online Markdown Editor using Qiniu cloud service",
   "author": {
