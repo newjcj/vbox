@@ -27,7 +27,7 @@
     "dev": "concurrently \"wait-on http://localhost:3000 && electron .\" \"cross-env BROWSER=none npm start\"",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "release": "electron-builder",
+    "release": "electron-builder --win -p always",
     "prerelease": "npm run build && npm run buildMain",
     "prepack": "npm run build && npm run buildMain",
     "predist": "npm run build && npm run buildMain"
@@ -49,9 +49,14 @@
     "extraMetadata": {
       "main": "./build/main.js"
     },
-    "publish": [
-      "github"
-    ],
+    "publish": {
+      "provider":"github",
+      "owner":"newjcj",
+      "repo":"vbox",
+      "private": true,
+      "token":"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",
+      "releaseType":"release"
+    },
     "extends": null,
     "mac": {
       "category": "public.app-category.productivity",
