@@ -18,7 +18,9 @@ const createManager = () => {
   return new QiniuManager(accessKey, secretKey, bucketName)
 }
 app.on('ready', () => {
-  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.autoDownload = false
+  autoUpdater.checkForUpdatesAndNotify();// product环境
+ // autoUpdater.checkForUpdates();
   autoUpdater.on('checking-for-update', () => {
     sendStatusToWindow('Checking for update...');
   })
@@ -46,7 +48,15 @@ app.on('ready', () => {
   })
 
   autoUpdater.on('update-downloaded', (info) => {
+    // 更新下载完毕
     sendStatusToWindow('Update downloaded');
+    dialog.showMessage({
+      title:'安装更新',
+      message:'更新下载完毕，请重新安装'
+    },()=>{
+      //安装
+      setImmediate(()=>{autoUpdater.quitAndInstall()})
+    })
   });
 
 
