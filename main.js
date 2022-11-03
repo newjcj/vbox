@@ -1,4 +1,5 @@
 const { app, globalShortcut, Menu, ipcMain, dialog } = require('electron')
+import { autoUpdater } from 'electron-updater'
 const isDev = require('electron-is-dev')
 const path = require('path')
 const menuTemplate = require('./src/menuTemplate')
@@ -17,6 +18,38 @@ const createManager = () => {
   return new QiniuManager(accessKey, secretKey, bucketName)
 }
 app.on('ready', () => {
+  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.on('checking-for-update', () => {
+    sendStatusToWindow('Checking for update...');
+  })
+  autoUpdater.on('update-available', (info) => {
+    //sendStatusToWindow('Update available.');
+    dialog.showMessageBox({
+      type: 'info',
+      title: '有新版本更新',
+      message: '发现新版本，是否更新？',
+      buttons: ['是', '否'],
+    }, (buttonIndex) => {
+      if (buttonIndex === 0) {
+        autoUpdater.downloadUpdate()
+      }
+    })
+  })
+  autoUpdater.on('update-not-available', (info) => {
+    sendStatusToWindow('Update not available.');
+  })
+  autoUpdater.on('download-progress', (progressObj) => {
+    let log_message = "Download speed: " + progressObj.bytesPerSecond;
+    log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+    log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+    sendStatusToWindow(log_message);
+  })
+
+  autoUpdater.on('update-downloaded', (info) => {
+    sendStatusToWindow('Update downloaded');
+  });
+
+
 
   Menu.setApplicationMenu(null) // null值取消顶部菜单栏 
   const mainWindowConfig = {
