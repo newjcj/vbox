@@ -1,5 +1,5 @@
 const { app, globalShortcut, Menu, ipcMain, dialog } = require('electron')
-import { autoUpdater } from 'electron-updater'
+const { autoUpdater } = require('electron-updater')
 const isDev = require('electron-is-dev')
 const path = require('path')
 const menuTemplate = require('./src/menuTemplate')
@@ -17,10 +17,20 @@ const createManager = () => {
   const bucketName = settingsStore.get('bucketName')
   return new QiniuManager(accessKey, secretKey, bucketName)
 }
+Object.defineProperty(app,'isPackaged',{
+  get(){
+    return true
+  }
+})
 app.on('ready', () => {
+    console.log('ready-----')
+  if(isDev){
+    console.log('jcj-----')
+    autoUpdater.updateConfigPath = path.join(__dirname, 'dev-app-update.yml')
+   autoUpdater.checkForUpdates();
+  }
   autoUpdater.autoDownload = false
-  autoUpdater.checkForUpdatesAndNotify();// product环境
- // autoUpdater.checkForUpdates();
+  //autoUpdater.checkForUpdatesAndNotify();// product环境
   autoUpdater.on('checking-for-update', () => {
     sendStatusToWindow('Checking for update...');
   })
