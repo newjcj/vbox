@@ -3,10 +3,10 @@
   margin-top: 60px;
   padding: 0;
   width: 100%;
-  background: rgba(1, 1, 1, 0);
+  background:red;
   min-width: 0;
   min-height: 0;
-  height: 550px;
+  height: 290px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -50,7 +50,7 @@
       .content-text {
         justify-content: space-around;
         text-align: left;
-        width: 70%;
+        width: 90%;
         height: 100%;
         min-width: 0;
         min-height: 0;
@@ -58,20 +58,21 @@
 
         .price {
           color: #fff;
-          font-size: 15px;
+          font-size: 14px;
           height: 30px;
           width: 100%;
           overflow: hidden;
 
           .price1 {
             display: inline-block;
-            width: 110px;
+            width: 70%;
 
           }
 
           .price2 {
             display: inline-block;
-            width: 90px;
+            width: 30%;
+            text-align: right;
           }
         }
 

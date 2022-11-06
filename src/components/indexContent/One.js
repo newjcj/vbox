@@ -19,7 +19,6 @@ const One = ({ rows }) => {
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
-  const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
   let node = useRef(null)
   console.log('--9999999999')
@@ -29,6 +28,7 @@ const One = ({ rows }) => {
       <div class="attention">
         *数据来自第三方仅供参考
       </div>
+
       {rows.map((item, key) => (
         <div class="wrapper">
           <div class="one-item">

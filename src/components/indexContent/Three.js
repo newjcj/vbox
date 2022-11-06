@@ -8,6 +8,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
 import "../css/indexContent/three.scss"
+import useGetData from '../../hooks/useGetData'
 const Store = window.require('electron-store')
 const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
@@ -16,7 +17,7 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
-const Four = ({ rows }) => {
+const Three = ({ rows,setRows,req,setReq }) => {
 
   const sss = useRef(null)
   const dataParam = useLocation()
@@ -24,15 +25,19 @@ const Four = ({ rows }) => {
 
 
   const [editStatus, setEditStatus] = useState(false)
-  const [active, setActive] = useState(1)
-  const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
 
+
+
   const onScroll = (e) => {
-    console.log("--999")
     let divEl = e.target
-    if (divEl.scrollTop + divEl.clientHeight + 20 > divEl.scrollHeight) {
-      console.log('add date--')
+
+    if (divEl.scrollTop + divEl.clientHeight+1 > divEl.scrollHeight) {
+    console.log("--999 ")
+      //setReq({...req,pageNo:req.pageNo+1})
+      req = {...req,pageNo:req.pageNo+1}
+      setReq(req)
+      console.log('add date--',req)
     }
   }
 
@@ -45,8 +50,9 @@ const Four = ({ rows }) => {
   return (
     <div class="row-content bd-highlight" id="three-wrapper" ref={sss}>
       {rows.map((item, key) => (
-        <div class="wrapper" >
+        <div class="wrapper" key={key}>
           <div class="three-item">
+
             <div class="content-img">
               <img src="images/t2.png" />
             </div>
@@ -76,8 +82,8 @@ const Four = ({ rows }) => {
   )
 }
 
-Four.propTypes = {
+Three.propTypes = {
   rows: PropTypes.array,
 }
 
-export default Four
+export default Three

@@ -14,12 +14,11 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
-const Four = ({ rows}) => {
+const Four = ({rows,setRows,req,setReq  }) => {
   const dataParam = useLocation()
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
-  const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
   let node = useRef(null)
 

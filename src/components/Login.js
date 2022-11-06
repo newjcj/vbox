@@ -132,7 +132,6 @@ const Login = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
       <div id="main-delete" onClick={() => { closeWindow() }}>
         x
       </div>
-
       <div class="logo">
         <img src="images/logo2x.png" />
 

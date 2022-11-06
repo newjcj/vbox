@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
 import useNotice from '../hooks/useNotice'
+import useGetData from '../hooks/useGetData'
 import Top from './indexContent/Top'
 import One from './indexContent/One'
 import Two from './indexContent/Two'
@@ -48,48 +49,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
       onFileDelete(editItem.id)
     }
   }
-
-  const getData = (index) => {
-    console.log(index)
-    let url = baseUrl + "/api/merchant/message/price"
-    switch (index) {
-      case 1:
-        url = baseUrl + "/api/merchant/message/price"
-        break;
-      case 2:
-        url = baseUrl + "/api/merchant/message/goods"
-        break;
-      case 3:
-        url = baseUrl + "/api/merchant/message/order"
-        break;
-      case 4:
-        url = baseUrl + "/api/merchant/message/other"
-        break;
-
-    }
-    const user = userStore.get('user')
-    console.log('aaaa----')
-    console.log(user)
-    axios({
-      url,
-      data: { ...req },
-      method: 'POST',
-      responseType: 'stream',
-      headers: { 'Session-Id': user.token }
-    }).then(response => {
-      console.log(response)
-
-      if (response.data.resultCode != "00000") {
-        message.info(response.data.returnMsg)
-      } else {
-        response.data.data.time = new Date().getTime()
-        setRows(response.data.data.rows)
-      }
-
-    }).catch(err => {
-      message.info(err.message)
-    })
-  }
+  const rowss = useGetData(setReq,req,setRows,rows,active)
   const showTop = () => {
     setTop(top == 1 ? 0 : 1)
   }
@@ -172,14 +132,12 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
     }
   }, [files])
   useEffect(() => {
-    console.log("设置了active")
-    console.log(active)
-    getData(active)
-  }, [active])
-  useEffect(() => {
     console.log("top------")
     console.log(top)
   }, [top])
+  useEffect(() => {
+    console.log("rowss------",rowss)
+  }, [rowss])
   return (
     <div class="main1">
       <Top rows={rows} />
@@ -263,10 +221,10 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
             </div>
           </div>
           <div>
-            {active == 1 && <One rows={rows} />}
-            {active == 2 && <Two rows={rows} />}
-            {active == 3 && <Three rows={rows} />}
-            {active == 4 && <Four rows={rows} />}
+            {active == 1 && <One rows={rows} setRows={setRows} req={req} setReq={setReq}  />}
+            {active == 2 && <Two rows={rows}  setRows={setRows} req={req} setReq={setReq} />}
+            {active == 3 && <Three rows={rows}  setRows={setRows} req={req} setReq={setReq}  />}
+            {active == 4 && <Four rows={rows}  setRows={setRows}   req={req} setReq={setReq}/>}
           </div>
         </div>
       </div>

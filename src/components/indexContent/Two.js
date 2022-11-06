@@ -14,12 +14,11 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
-const Two = ({ rows}) => {
+const Two = ({ rows,setRows,req,setReq }) => {
   const dataParam = useLocation()
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
-  const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
   let node = useRef(null)
 
@@ -33,8 +32,10 @@ const Two = ({ rows}) => {
             </div>
             <div class="content-text">
               <div class="title">{item.title}</div>
+
               <div class="price">
                 <div class="price1">
+
                   现价：{item.price}€
                 </div>
                 <div class="price2">
