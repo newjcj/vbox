@@ -22,17 +22,30 @@ Object.defineProperty(app,'isPackaged',{
     return true
   }
 })
+//  在electron中，碰到不安全证书连接，会显示白屏，按照chrome在控制台用location.href跳转也无济于事
+//  //忽略证书的检测
+app.commandLine.appendSwitch('ignore-certificate-errors')
+
 app.on('ready', () => {
-    console.log('ready-----')
-  if(isDev){
-    console.log('jcj-----')
-    autoUpdater.updateConfigPath = path.join(__dirname, 'dev-app-update.yml')
-   autoUpdater.checkForUpdates();
-  }
+  console.log('ready-------')
   autoUpdater.autoDownload = false
-  //autoUpdater.checkForUpdatesAndNotify();// product环境
+  if (isDev) {
+    //autoUpdater.checkForUpdates();
+    autoUpdater.updateConfigPath = path.join(__dirname, 'dev-app-update.yml')
+    autoUpdater.checkForUpdatesAndNotify();// product环境
+  } else {
+    autoUpdater.checkForUpdatesAndNotify();// product环境
+  }
+  autoUpdater.on('error', (error)=>{
+    dialog.showErrorBox('Error___jcj',error === null ? 'unknow' : error.message)
+  })
   autoUpdater.on('checking-for-update', () => {
-    sendStatusToWindow('Checking for update...');
+    //sendStatusToWindow('Checking for update...');
+    dialog.showMessageBox({
+      title: 'checking',
+      message: 'checking...'
+    }, () => {
+    })
   })
   autoUpdater.on('update-available', (info) => {
     //sendStatusToWindow('Update available.');
@@ -43,29 +56,36 @@ app.on('ready', () => {
       buttons: ['是', '否'],
     }, (buttonIndex) => {
       if (buttonIndex === 0) {
+        console.log("开始下载中...")
         autoUpdater.downloadUpdate()
+        console.log("开始下载中...111")
       }
     })
   })
   autoUpdater.on('update-not-available', (info) => {
-    sendStatusToWindow('Update not available.');
+    //sendStatusToWindow('Update not available.');
+    // dialog.showMessageBox({
+    //   title: '提醒',
+    //   message: '无更新下载'
+    // }, () => {
+    // })
   })
   autoUpdater.on('download-progress', (progressObj) => {
     let log_message = "Download speed: " + progressObj.bytesPerSecond;
     log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
     log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-    sendStatusToWindow(log_message);
+    //sendStatusToWindow(log_message);
   })
 
   autoUpdater.on('update-downloaded', (info) => {
     // 更新下载完毕
-    sendStatusToWindow('Update downloaded');
-    dialog.showMessage({
-      title:'安装更新',
-      message:'更新下载完毕，请重新安装'
-    },()=>{
+    //sendStatusToWindow('Update downloaded');
+    dialog.showMessageBox({
+      title: '安装更新',
+      message: '更新下载完毕，请重新安装'
+    }, () => {
       //安装
-      setImmediate(()=>{autoUpdater.quitAndInstall()})
+      setImmediate(() => { autoUpdater.quitAndInstall() })
     })
   });
 

@@ -1,14 +1,14 @@
 {
   "name": "vbox",
-  "version": "1.0.3",
+  "version": "1.0.8",
   "main": "main.js",
   "description": "Online Markdown Editor using Qiniu cloud service",
   "author": {
-    "name": "Viking Zhang",
-    "email": "vikingmute@gmail.com"
+    "name": "newjcj",
+    "email": "newjcj1@gmail.com"
   },
-  "repository": "https://github.com/vikingmute/clouddoc",
-  "private": true,
+  "repository": "https://github.com/newjcj/vbox",
+  "private": false,
   "dependencies": {
     "antd": "^4.23.2",
     "bootstrap": "^4.3.1",
@@ -50,12 +50,12 @@
       "main": "./build/main.js"
     },
     "publish": {
-      "provider":"github",
-      "owner":"newjcj",
-      "repo":"vbox",
-      "private": true,
-      "token":"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",
-      "releaseType":"release"
+      "provider": "github",
+      "owner": "newjcj",
+      "repo": "vbox",
+      "private": false,
+      "token": "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",
+      "releaseType": "release"
     },
     "extends": null,
     "mac": {
@@ -91,7 +91,9 @@
       ],
       "icon": "assets/icon.ico",
       "artifactName": "${productName}-Web-Setup-${version}.${ext}",
-      "publisherName": "Viking Zhang"
+      "publisherName": "newjcj",
+      "requestedExecutionLevel": "highestAvailable",
+      "verifyUpdateCodeSignature": false
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,

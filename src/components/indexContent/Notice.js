@@ -14,6 +14,7 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
+
 const Notice = ({ rows }) => {
   const dataParam = useLocation()
   console.log(dataParam.state)
