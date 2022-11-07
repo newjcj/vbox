@@ -14,7 +14,7 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
-const Two = ({ rows,setRows,req,setReq }) => {
+const Two = ({ rows,fun,req,setReq,canscroll,setCanscroll }) => {
   const dataParam = useLocation()
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
@@ -25,7 +25,7 @@ const Two = ({ rows,setRows,req,setReq }) => {
   return (
     <div class="row-content bd-highlight">
       {rows.map((item,key) => (
-        <div class="wrapper">
+        <div class="wrapper" key={key}>
           <div class="two-item">
             <div class="content-img">
               <img src="images/t3.png" />

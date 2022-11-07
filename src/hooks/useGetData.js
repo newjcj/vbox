@@ -10,14 +10,21 @@ const userStore = new Store({ name: 'userStore' })
 var baseUrl = "https://api-vbox.jpqapro.com"
 
 
-const useGetData = (setReq, req, setRows,rows, active) => {
+const useGetData = (setReq, req,  active,canscroll,setCanscroll) => {
 
+  const [rows, setRows] = useState([])
   const user = userStore.get('user')
   // let url = baseUrl + "/api/merchant/message/order"
   const status = ''
 
 
   useEffect(() => {
+
+    if(!canscroll || req.pageNo === 0){
+      console.log('太心急了')
+      return;
+    }
+    setCanscroll(false)
 
     console.log('active-req--', req)
     let url = baseUrl + "/api/merchant/message/price"
@@ -56,6 +63,7 @@ const useGetData = (setReq, req, setRows,rows, active) => {
           response.data.data.rows.forEach(x=>{rows.push(x)})
           const ttt=rows
           setRows(ttt)
+          setCanscroll(true)
         }
       }
 
@@ -67,6 +75,16 @@ const useGetData = (setReq, req, setRows,rows, active) => {
   useEffect(() => {
 
     console.log('active---', active)
+
+    const reqq = {pageSize:10,pageNo:0}
+    setReq(reqq)
+    console.log('initreq',req)
+    const rowwww=[]
+    setRows(rowwww)
+    console.log('rowww',rows)
+    setCanscroll(true)
+
+
     let url = baseUrl + "/api/merchant/message/price"
     switch (active) {
       case 1:
@@ -85,31 +103,32 @@ const useGetData = (setReq, req, setRows,rows, active) => {
     }
     axios({
       url,
-      data: { ...req },
+      data: { pageNo:0,pageSize:10 },
       method: 'POST',
       responseType: 'stream',
       headers: { 'Session-Id': user.token }
     }).then(response => {
       console.log(response)
-
+      console.log('active请求后',req)
       if (response.data.resultCode != "00000") {
         message.info(response.data.returnMsg)
       } else {
         //response.data.data.time = new Date().getTime()
         //setRows(response.data.data.rows)
+        console.log('active-rows',response.data.data.rows)
         setRows(response.data.data.rows)
       }
 
     }).catch(err => {
       message.info(err.message)
     })
-    const reqq = {...req,pageNo:0}
-    setReq(reqq)
-    const rowwww=[]
-    setRows(rowwww)
 
 
   }, [active])
+
+  return {
+    rows:rows,
+  }
 
 }
 

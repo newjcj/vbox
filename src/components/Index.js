@@ -33,9 +33,9 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
-  const [rows, setRows] = useState([])
   const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
+  const [canscroll, setCanscroll] = useState(true)
   const [top, setTop] = useState(0)
   const notice1 = useNotice('aa')
   let node = useRef(null)
@@ -49,7 +49,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
       onFileDelete(editItem.id)
     }
   }
-  const rowss = useGetData(setReq,req,setRows,rows,active)
+  const {rows:rows,fun:fun} = useGetData(setReq,req,active,canscroll,setCanscroll)
   const showTop = () => {
     setTop(top == 1 ? 0 : 1)
   }
@@ -136,8 +136,10 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
     console.log(top)
   }, [top])
   useEffect(() => {
-    console.log("rowss------",rowss)
-  }, [rowss])
+    console.log("rowss------",rows)
+  }, [rows])
+  useEffect(() => {
+  }, [active])
   return (
     <div class="main1">
       <Top rows={rows} />
@@ -221,10 +223,10 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
             </div>
           </div>
           <div>
-            {active == 1 && <One rows={rows} setRows={setRows} req={req} setReq={setReq}  />}
-            {active == 2 && <Two rows={rows}  setRows={setRows} req={req} setReq={setReq} />}
-            {active == 3 && <Three rows={rows}  setRows={setRows} req={req} setReq={setReq}  />}
-            {active == 4 && <Four rows={rows}  setRows={setRows}   req={req} setReq={setReq}/>}
+            {active == 1 && <One rows={rows} fun={fun}  req={req} setReq={setReq} canscroll={canscroll} setCanscroll={setCanscroll}  />}
+            {active == 2 && <Two rows={rows} fun={fun}  req={req} setReq={setReq} canscroll={canscroll}   setCanscroll={setCanscroll} />}
+            {active == 3 && <Three rows={rows} fun={fun}  req={req} setReq={setReq} canscroll={canscroll}   setCanscroll={setCanscroll}  />}
+            {active == 4 && <Four rows={rows}  fun={fun}   req={req} setReq={setReq}   canscroll={canscroll}  setCanscroll={setCanscroll}  />}
           </div>
         </div>
       </div>

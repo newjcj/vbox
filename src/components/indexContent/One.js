@@ -14,12 +14,11 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
-const One = ({ rows }) => {
+const One = ({ rows,fun,req,setReq,canscroll,setCanscroll }) => {
   const dataParam = useLocation()
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
-  const [value, setValue] = useState('')
   let node = useRef(null)
   console.log('--9999999999')
 
@@ -30,7 +29,7 @@ const One = ({ rows }) => {
       </div>
 
       {rows.map((item, key) => (
-        <div class="wrapper">
+        <div class="wrapper" key={key}>
           <div class="one-item">
             <div class="content-img">
               <img src="images/t1.png" />

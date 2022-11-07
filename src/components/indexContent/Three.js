@@ -17,7 +17,7 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 //const navigate=useNavigate();
 //navigate("/test");
-const Three = ({ rows,setRows,req,setReq }) => {
+const Three = ({ rows,fun,req,setReq,canscroll,setCanscroll}) => {
 
   const sss = useRef(null)
   const dataParam = useLocation()
@@ -31,13 +31,15 @@ const Three = ({ rows,setRows,req,setReq }) => {
 
   const onScroll = (e) => {
     let divEl = e.target
-
-    if (divEl.scrollTop + divEl.clientHeight+1 > divEl.scrollHeight) {
+    
+    if (divEl.scrollTop + divEl.clientHeight+1 > divEl.scrollHeight && canscroll) {
     console.log("--999 ")
+
       //setReq({...req,pageNo:req.pageNo+1})
       req = {...req,pageNo:req.pageNo+1}
       setReq(req)
-      console.log('add date--',req)
+    }else{
+      console.log("哈哈-----")
     }
   }
 
