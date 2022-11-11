@@ -8,6 +8,7 @@ import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
+import { query } from './utils/mysql'
 import useNotice from '../hooks/useNotice'
 import useGetData from '../hooks/useGetData'
 import Top from './indexContent/Top'
@@ -18,9 +19,34 @@ import Four from './indexContent/Four'
 import { getParentNode } from '../utils/helper'
 import "./css/JcjIndex.scss"
 const Store = window.require('electron-store')
-const { shell,app } = window.require('electron')
+const { shell, app } = window.require('electron')
 const userStore = new Store({ name: 'userStore' })
+const mysql = require('mysql')
 var baseUrl = "https://api-vbox.jpqapro.com"
+
+
+//process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+
+
+let sql = `select * from articulodibujo`
+query(sql, function (err, vals, fields) {
+  let a = JSON.parse(JSON.stringify(vals));
+  console.log('mysql---',a)
+});
+
+let sql1 = `select a.PrecioDetalle price,a.ArticuloID skuNo,a.NombreES title,s.Stock stockCount,s.Stock sss from articulo a left join stock s on a.ArticuloID=s.ArticuloID`
+query(sql1, function (err, vals, fields) {
+  let a = JSON.parse(JSON.stringify(vals));
+  console.log('mysql---',a)
+});
+let sql2 = `select * from stock`
+query(sql2, function (err, vals, fields) {
+  let a = JSON.parse(JSON.stringify(vals));
+  console.log('mysql---',a)
+});
+
+
+
 
 
 
@@ -49,7 +75,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
       onFileDelete(editItem.id)
     }
   }
-  const {rows:rows,fun:fun} = useGetData(setReq,req,active,canscroll,setCanscroll)
+  const { rows: rows, fun: fun } = useGetData(setReq, req, active, canscroll, setCanscroll)
   const showTop = () => {
     setTop(top == 1 ? 0 : 1)
   }
@@ -136,7 +162,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
     console.log(top)
   }, [top])
   useEffect(() => {
-    console.log("rowss------",rows)
+    console.log("rowss------", rows)
   }, [rows])
   useEffect(() => {
   }, [active])
@@ -223,10 +249,10 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
             </div>
           </div>
           <div>
-            {active == 1 && <One rows={rows} fun={fun}  req={req} setReq={setReq} canscroll={canscroll} setCanscroll={setCanscroll}  />}
-            {active == 2 && <Two rows={rows} fun={fun}  req={req} setReq={setReq} canscroll={canscroll}   setCanscroll={setCanscroll} />}
-            {active == 3 && <Three rows={rows} fun={fun}  req={req} setReq={setReq} canscroll={canscroll}   setCanscroll={setCanscroll}  />}
-            {active == 4 && <Four rows={rows}  fun={fun}   req={req} setReq={setReq}   canscroll={canscroll}  setCanscroll={setCanscroll}  />}
+            {active == 1 && <One rows={rows} fun={fun} req={req} setReq={setReq} canscroll={canscroll} setCanscroll={setCanscroll} />}
+            {active == 2 && <Two rows={rows} fun={fun} req={req} setReq={setReq} canscroll={canscroll} setCanscroll={setCanscroll} />}
+            {active == 3 && <Three rows={rows} fun={fun} req={req} setReq={setReq} canscroll={canscroll} setCanscroll={setCanscroll} />}
+            {active == 4 && <Four rows={rows} fun={fun} req={req} setReq={setReq} canscroll={canscroll} setCanscroll={setCanscroll} />}
           </div>
         </div>
       </div>
