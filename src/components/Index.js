@@ -21,28 +21,57 @@ import "./css/JcjIndex.scss"
 const Store = window.require('electron-store')
 const { shell, app } = window.require('electron')
 const userStore = new Store({ name: 'userStore' })
+const dbStore = new Store({ name: 'dbStore' })
 const mysql = require('mysql')
 var baseUrl = "https://api-vbox.jpqapro.com"
 
 
 //process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
+const saveDb = (data) => {
 
-let sql = `select * from articulodibujo`
-query(sql, function (err, vals, fields) {
-  let a = JSON.parse(JSON.stringify(vals));
-  console.log('mysql---',a)
-});
+  const user = userStore.get('user')
+  let url = baseUrl + ''
+  axios({
+    url,
+    data: data,
+    method: 'POST',
+    responseType: 'stream',
+    headers: { 'Session-Id': user.token }
+  }).then(response => {
+    console.log(response)
+
+    if (response.data.resultCode != "00000") {
+      message.info(response.data.returnMsg)
+    } else {
+      console.log('提交数据成功')
+    }
+
+  }).catch(err => {
+    message.info(err.message)
+  })
+}
 
 let sql1 = `select a.PrecioDetalle price,a.ArticuloID skuNo,a.NombreES title,s.Stock stockCount,s.Stock sss from articulo a left join stock s on a.ArticuloID=s.ArticuloID`
 query(sql1, function (err, vals, fields) {
-  let a = JSON.parse(JSON.stringify(vals));
-  console.log('mysql---',a)
-});
-let sql2 = `select * from stock`
-query(sql2, function (err, vals, fields) {
-  let a = JSON.parse(JSON.stringify(vals));
-  console.log('mysql---',a)
+  let mdata = JSON.parse(JSON.stringify(vals));
+  let dbData = dbStore.get('data')
+  let time = new Date().getTime()
+  if (dbData == undefined || dbData.time == undefined || dbData.data == undefined) {
+    // 初始化数据
+    let data = { data: mdata, time: new Date().getTime() }
+    dbStore.set('data', data)
+  } else {
+    mdata.forEach(item => {
+      item.isDelete = 1
+      dbData.data.forEach(db => {
+        if (item.skuNo == db.skuNo) {
+          item.isDelete = 0
+        }
+      })
+    })
+  }
+  console.log('mysql---', a)
 });
 
 
