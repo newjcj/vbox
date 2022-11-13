@@ -18,7 +18,7 @@ const Store = window.require('electron-store')
 const userStore = new Store({ name: 'userStore' })
 // 配置登录过期时间（秒）
 //const EXPIRE_TIME = 3600*24*30
-const EXPIRE_TIME = 3600
+const EXPIRE_TIME = 3600*2
 
 const Login = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   const navigate = useNavigate()

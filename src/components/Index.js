@@ -30,17 +30,19 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 const saveDb = (data) => {
 
-  console.log('更新数据库=====',data)
+  let data1 = data.map(item=>({...item,stockCount:(item.stockCount == null) ? 0 : item.stockCount}))
+  console.log('更新数据库=====',data1)
+
   const user = userStore.get('user')
   let url = baseUrl + '/api/merchant/goods/plug/batch/save'
   axios({
     url,
-    data: data,
+    data: {goods:data1.map(item=>({...item,price:item.price+1})),pageNo:0,pageSize:10},
     method: 'POST',
     responseType: 'stream',
     headers: { 'Session-Id': user.token }
   }).then(response => {
-    console.log(response)
+    console.log("更新数据返回====",response)
 
     if (response.data.resultCode != "00000") {
       message.info(response.data.returnMsg)
@@ -54,11 +56,14 @@ const saveDb = (data) => {
 }
 
 const getDb = () => {
-  let sql1 = `select a.PrecioDetalle price,a.ArticuloID skuNo,a.NombreES title,s.Stock stockCount,s.Stock sss from articulo a left join stock s on a.ArticuloID=s.ArticuloID`
+  let sql1 = `select a.PrecioDetalle price,a.ArticuloID skuNo,a.NombreES title,s.Stock stockCount from articulo a left join stock s on a.ArticuloID=s.ArticuloID`
   query(sql1, function (err, vals, fields) {
     let mdata = JSON.parse(JSON.stringify(vals));
     let dbData = dbStore.get('data')
+    console.log('logcalDb---',dbData)
     let time = new Date().getTime()
+    console.log('db---',mdata)
+
     if (dbData == undefined || dbData.time == undefined || dbData.data == undefined) {
       // 初始化数据
       let objArr = {}
@@ -79,16 +84,18 @@ const getDb = () => {
       dbStore.set('data', data)
 
       // 添加要返回的数据哪些是要删除的
-      let save = mdata.map(item => ({ ...item, delFlag: (updateDb[item.skuNo]) ? 1 : 0 }))
+      let save = mdata.map(item => ({ ...item, delFlag: (updateDb[item.skuNo] == undefined) ? 1 : 0 }))
       saveDb(save)
     }
-    console.log('mysql---', a)
   });
 
 }
 
 
 getDb()
+setInterval(() => {
+  getDb()
+},1000*3600)
 
 
 
