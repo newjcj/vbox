@@ -18,7 +18,6 @@ var notice = () => {
   }
 }
 
-notice()
 const getData = (url) => {
   
     const user = userStore.get('user')

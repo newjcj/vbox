@@ -35,7 +35,7 @@ const Notice = ({ rows }) => {
       console.log('aaassaa')
     }
   }
-  notice()
+//  notice()
 
   return (
     <div class="row-content bd-highlight">

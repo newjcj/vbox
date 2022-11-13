@@ -24,7 +24,7 @@ const Login = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
   const navigate = useNavigate()
   function login() {
     console.log(user)
-    console.log("-----a", userStore.get('user'))
+    console.log("------a", userStore.get('user'))
     let url = baseUrl + "/api/merchant/user/login"
 
     axios({

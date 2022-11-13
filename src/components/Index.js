@@ -30,19 +30,19 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 const saveDb = (data) => {
 
-  let data1 = data.map(item=>({...item,stockCount:(item.stockCount == null) ? 0 : item.stockCount}))
-  console.log('更新数据库=====',data1)
+  let data1 = data.map(item => ({ ...item, stockCount: (item.stockCount == null) ? 0 : item.stockCount }))
+  console.log('更新数据库=====', data1)
 
   const user = userStore.get('user')
   let url = baseUrl + '/api/merchant/goods/plug/batch/save'
   axios({
     url,
-    data: {goods:data1.map(item=>({...item,price:item.price+1})),pageNo:0,pageSize:10},
+    data: { goods: data1.map(item => ({ ...item, price: item.price })), pageNo: 0, pageSize: 10 },
     method: 'POST',
     responseType: 'stream',
     headers: { 'Session-Id': user.token }
   }).then(response => {
-    console.log("更新数据返回====",response)
+    console.log("更新数据返回====", response)
 
     if (response.data.resultCode != "00000") {
       message.info(response.data.returnMsg)
@@ -60,9 +60,9 @@ const getDb = () => {
   query(sql1, function (err, vals, fields) {
     let mdata = JSON.parse(JSON.stringify(vals));
     let dbData = dbStore.get('data')
-    console.log('logcalDb---',dbData)
+    console.log('logcalDb---', dbData)
     let time = new Date().getTime()
-    console.log('db---',mdata)
+    console.log('db---', mdata)
 
     if (dbData == undefined || dbData.time == undefined || dbData.data == undefined) {
       // 初始化数据
@@ -95,7 +95,49 @@ const getDb = () => {
 getDb()
 setInterval(() => {
   getDb()
-},1000*3600)
+}, 1000 * 3600)
+
+
+const notice = (msg) => {
+
+  let option = {
+    title: "消息通知",
+    body: msg
+  }
+  const myNotification = new window.Notification(option.title, option)
+  myNotification.onclick = () => {
+    console.log('aaassaa')
+  }
+}
+
+const webSock = () => {
+  const user = userStore.get('user')
+  let token = user.token
+  let url = `ws://api-vbox. jpqapro.com:9088/ws/msg/${token}`
+  var ws = new WebSocket(url);
+  //连接成功回调
+  ws.onopen = (evt) => {
+    console.log("Conenection websocket open ...");
+  }
+  //消息监听
+  ws.onmessage = (evt) => {
+    console.log("websocket msg----",evt);
+
+    notice(evt.data)
+  }
+
+  //连接失败
+  ws.onerror = function (evt) {
+    console.log('websocket 建立连接--失败"',evt)
+    //关闭连接
+    ws.close();
+    //移除失败的ws
+    console.log("移除 " + url + " 连接");
+  }
+
+}
+webSock()
+
 
 
 
