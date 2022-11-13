@@ -113,11 +113,11 @@ const notice = (msg) => {
 const webSock = () => {
   const user = userStore.get('user')
   let token = user.token
-  let url = `ws://api-vbox. jpqapro.com:9088/ws/msg/${token}`
+  let url = `ws://api-vbox.jpqapro.com:9088/ws/msg/${token}`
   var ws = new WebSocket(url);
   //连接成功回调
   ws.onopen = (evt) => {
-    console.log("Conenection websocket open ...");
+    console.log("Conenection websocke open ...");
   }
   //消息监听
   ws.onmessage = (evt) => {
