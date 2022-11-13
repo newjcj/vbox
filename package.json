@@ -55,7 +55,7 @@
       "owner": "newjcj",
       "repo": "vbox",
       "private": false,
-      "token": "",
+      "token": "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",
       "releaseType": "release"
     },
     "extends": null,

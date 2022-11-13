@@ -30,8 +30,9 @@ var baseUrl = "https://api-vbox.jpqapro.com"
 
 const saveDb = (data) => {
 
+  console.log('更新数据库=====',data)
   const user = userStore.get('user')
-  let url = baseUrl + ''
+  let url = baseUrl + '/api/merchant/goods/plug/batch/save'
   axios({
     url,
     data: data,
@@ -52,30 +53,42 @@ const saveDb = (data) => {
   })
 }
 
-let sql1 = `select a.PrecioDetalle price,a.ArticuloID skuNo,a.NombreES title,s.Stock stockCount,s.Stock sss from articulo a left join stock s on a.ArticuloID=s.ArticuloID`
-query(sql1, function (err, vals, fields) {
-  let mdata = JSON.parse(JSON.stringify(vals));
-  let dbData = dbStore.get('data')
-  let time = new Date().getTime()
-  if (dbData == undefined || dbData.time == undefined || dbData.data == undefined) {
-    // 初始化数据
-    let data = { data: mdata, time: new Date().getTime() }
-    dbStore.set('data', data)
-  } else {
-    mdata.forEach(item => {
-      item.isDelete = 1
-      dbData.data.forEach(db => {
-        if (item.skuNo == db.skuNo) {
-          item.isDelete = 0
+const getDb = () => {
+  let sql1 = `select a.PrecioDetalle price,a.ArticuloID skuNo,a.NombreES title,s.Stock stockCount,s.Stock sss from articulo a left join stock s on a.ArticuloID=s.ArticuloID`
+  query(sql1, function (err, vals, fields) {
+    let mdata = JSON.parse(JSON.stringify(vals));
+    let dbData = dbStore.get('data')
+    let time = new Date().getTime()
+    if (dbData == undefined || dbData.time == undefined || dbData.data == undefined) {
+      // 初始化数据
+      let objArr = {}
+      mdata.forEach(item => { objArr[item.skuNo] = item })
+      let data = { data: objArr, time: new Date().getTime() }
+      dbStore.set('data', data)
+      mdata.map(item => ({ ...item, delFlag: 0 }))
+      saveDb(mdata)
+    } else {
+      // 先看有没有新数据加到本地存储里面
+      let updateDb = dbData
+      mdata.forEach(item => {
+        if (updateDb[item.skuNo] == undefined) {
+          updateDb[item.skuNo] = item
         }
       })
-    })
-  }
-  console.log('mysql---', a)
-});
+      let data = { data: updateDb, time: new Date().getTime() }
+      dbStore.set('data', data)
+
+      // 添加要返回的数据哪些是要删除的
+      let save = mdata.map(item => ({ ...item, delFlag: (updateDb[item.skuNo]) ? 1 : 0 }))
+      saveDb(save)
+    }
+    console.log('mysql---', a)
+  });
+
+}
 
 
-
+getDb()
 
 
 
