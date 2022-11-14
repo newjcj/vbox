@@ -11,7 +11,6 @@ import "../css/indexContent/three.scss"
 import useGetData from '../../hooks/useGetData'
 const Store = window.require('electron-store')
 const userStore = new Store({ name: 'userStore' })
-var baseUrl = "https://api-vbox.jpqapro.com"
 
 
 

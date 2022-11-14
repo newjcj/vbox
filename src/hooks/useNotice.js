@@ -6,7 +6,7 @@ const Store = window.require('electron-store')
 const userStore = new Store({ name: 'userStore' })
 // 通知
 
-var baseUrl = "https://api-vbox.jpqapro.com"
+var baseUrl = process.env.REACT_APP_BASE_URL
 var notice = () => {
   let option = {
     title: "消息通知",

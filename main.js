@@ -26,6 +26,7 @@ Object.defineProperty(app,'isPackaged',{
 //  //忽略证书的检测
 app.commandLine.appendSwitch('ignore-certificate-errors')
 
+process.env.BASEURL = 'aaaaa'
 app.on('ready', () => {
   console.log('ready-------')
   autoUpdater.autoDownload = false

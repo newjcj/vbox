@@ -12,7 +12,7 @@ import useKeyPress from '../hooks/useKeyPress'
 import useContextMenu from '../hooks/useContextMenu'
 import { getParentNode } from '../utils/helper'
 import "./css/Login.scss"
-var baseUrl = "https://api-vbox.jpqapro.com"
+var baseUrl = process.env.REACT_APP_BASE_URL
 const { remote, ipcRenderer } = window.require('electron')
 const Store = window.require('electron-store')
 const userStore = new Store({ name: 'userStore' })

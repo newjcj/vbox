@@ -23,10 +23,15 @@ const { shell, app } = window.require('electron')
 const userStore = new Store({ name: 'userStore' })
 const dbStore = new Store({ name: 'dbStore' })
 const mysql = require('mysql')
-var baseUrl = "https://api-vbox.jpqapro.com"
+//var baseUrl = "https://api-vbox.jpqapro.com"
+var baseUrl = process.env.REACT_APP_BASE_URL
 
 
 //process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+console.log('env---------',process.env.BASEURL)
+console.log('env---------',process.env.BASEURL)
+console.log('env---------',process.env.REACT_APP_MSG)
+console.log('env---------',process.env.BROWSER)
 
 const saveDb = (data) => {
 
@@ -113,7 +118,9 @@ const notice = (msg) => {
 const webSock = () => {
   const user = userStore.get('user')
   let token = user.token
-  let url = `ws://api-vbox.jpqapro.com:9088/ws/msg/${token}`
+  //let url = `ws://api-vbox.jpqapro.com:9088/ws/msg/${token}`
+  let wsurl=process.env.REACT_APP_WEBSOCKET_URL
+  let url = `${wsurl}/ws/msg/${token}`
   var ws = new WebSocket(url);
   //连接成功回调
   ws.onopen = (evt) => {

@@ -9,7 +9,6 @@ import PropTypes from 'prop-types'
 import "../css/indexContent/one.scss"
 const Store = window.require('electron-store')
 const userStore = new Store({ name: 'userStore' })
-var baseUrl = "https://api-vbox.jpqapro.com"
 
 
 //const navigate=useNavigate();
