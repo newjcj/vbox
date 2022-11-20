@@ -18,13 +18,30 @@ const Top = ({ rows }) => {
   const [active, setActive] = useState(1)
   const [req, setReq] = useState({ pageNo: 0, pageSize: 10 })
   const [value, setValue] = useState('')
+  const Store = window.require('electron-store')
+  const userStore = new Store({ name: 'userStore' })
   let node = useRef(null)
   const miniWindow = () => {
     remote.getCurrentWindow().minimize()
     //ipcRenderer.send("w-min")
   }
   const closeWindow = () => {
-    remote.getCurrentWindow().close()
+    const user = userStore.get('user')
+    user.tt=1
+    let uu = user
+    console.log('old user---', uu)
+    let time = new Date().getTime() - 1000 * 3600 * 24 * 7 -1
+    console.log('time---',time)
+    console.log('new date',new Date().getTime())
+    user.time = time
+    userStore.set('user', user)
+    user.tt=2
+
+    console.log('new user---', user)
+    setTimeout(() => {
+
+      remote.getCurrentWindow().close()
+    }, 100)
     //ipcRenderer.send("w-min")
   }
 
