@@ -104,14 +104,18 @@ setInterval(() => {
 
 
 const notice = (msg) => {
-
+  console.log("来了socket:",msg)
+  console.log("来了socketobj:",JSON.parse(msg))
+  const data = JSON.parse(msg)
   let option = {
     title: "消息通知",
-    body: msg
+    body: `订单id：${data.orderId},价格：${data.money},数量：${data.count}`
   }
   const myNotification = new window.Notification(option.title, option)
   myNotification.onclick = () => {
-    console.log('aaassaa')
+    console.log('aaassaa_socket')
+
+    shell.openExternal(data.url)
   }
 }
 
