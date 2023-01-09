@@ -26,12 +26,11 @@ const mysql = require('mysql')
 //var baseUrl = "https://api-vbox.jpqapro.com"
 var baseUrl = process.env.REACT_APP_BASE_URL
 
-
 //process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
-console.log('env---------',process.env.BASEURL)
-console.log('env---------',process.env.BASEURL)
-console.log('env---------',process.env.REACT_APP_MSG)
-console.log('env---------',process.env.BROWSER)
+console.log('env---------', process.env.BASEURL)
+console.log('env---------', process.env.BASEURL)
+console.log('env---------', process.env.REACT_APP_MSG)
+console.log('env---------', process.env.BROWSER)
 
 const saveDb = (data) => {
 
@@ -104,8 +103,8 @@ setInterval(() => {
 
 
 const notice = (msg) => {
-  console.log("来了socket:",msg)
-  console.log("来了socketobj:",JSON.parse(msg))
+  console.log("来了socket:", msg)
+  console.log("来了socketobj:", JSON.parse(msg))
   const data = JSON.parse(msg)
   let option = {
     title: "消息通知",
@@ -119,11 +118,32 @@ const notice = (msg) => {
   }
 }
 
+const closeWindow = () => {
+  const user = {}
+  user.tt = 1
+  let uu = user
+  console.log('old user---', uu)
+  let time = new Date().getTime() - 1000 * 3600 * 24 * 7 - 1
+  console.log('time---', time)
+  console.log('new date', new Date().getTime())
+  user.time = time
+  userStore.set('user', user)
+  user.tt = 2
+
+  console.log('new user---', user)
+ // navigate("/login", { state: "aaaa" });
+  //ipcRenderer.send("w-min")
+}
 const webSock = () => {
   const user = userStore.get('user')
+  if (user == undefined) {
+    console.log("wesocket 还没登录")
+    closeWindow()
+    return true
+  }
   let token = user.token
   //let url = `ws://api-vbox.jpqapro.com:9088/ws/msg/${token}`
-  let wsurl=process.env.REACT_APP_WEBSOCKET_URL
+  let wsurl = process.env.REACT_APP_WEBSOCKET_URL
   let url = `${wsurl}/ws/msg/${token}`
   var ws = new WebSocket(url);
   //连接成功回调
@@ -132,14 +152,14 @@ const webSock = () => {
   }
   //消息监听
   ws.onmessage = (evt) => {
-    console.log("websocket msg----",evt);
+    console.log("websocket msg----", evt);
 
     notice(evt.data)
   }
 
   //连接失败
   ws.onerror = function (evt) {
-    console.log('websocket 建立连接--失败"',evt)
+    console.log('websocket 建立连接--失败"', evt)
     //关闭连接
     ws.close();
     //移除失败的ws
@@ -157,7 +177,9 @@ webSock()
 //const navigate=useNavigate();
 //navigate("/test");
 const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
+  const navigate = useNavigate()
   const dataParam = useLocation()
+  const userTop = userStore.get('user')
   console.log(dataParam.state)
   const [editStatus, setEditStatus] = useState(false)
   const [active, setActive] = useState(1)
@@ -291,7 +313,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj" onClick={() => { openUrl("http://www.qq.com") }}>
+                <div class="wrap-jcj" onClick={() => { openUrl("https://store.vboxsoft.com/?shopCode=" + userTop.shopCode) }}>
                   <div class="image">
                     <img src="images/2.png" />
                   </div>
@@ -299,7 +321,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj" onClick={() => { openUrl("http://www.qq.com") }}>
+                <div class="wrap-jcj" onClick={() => { openUrl("https://www.vboxsoft.com/") }}>
                   <div class="image">
                     <img src="images/3.png" />
                   </div>
@@ -307,7 +329,7 @@ const Index = ({ files, onFileClick, onSaveEdit, onFileDelete }) => {
                 </div>
               </div>
               <div class="item">
-                <div class="wrap-jcj" onClick={() => { openUrl("http://www.qq.com") }}>
+                <div class="wrap-jcj" onClick={() => { openUrl("https://merchant.vboxsoft.com/#/login") }}>
                   <div class="image">
                     <img src="images/4.png" />
                   </div>

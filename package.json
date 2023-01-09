@@ -1,6 +1,6 @@
 {
   "name": "vbox",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "main.js",
   "description": "Online Markdown Editor using Qiniu cloud service",
   "author": {
@@ -55,7 +55,7 @@
       "owner": "newjcj",
       "repo": "vbox",
       "private": false,
-      "token": "",
+      "token": "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",
       "releaseType": "release"
     },
     "extends": null,
